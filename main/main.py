@@ -13,16 +13,16 @@ def screen(screenx,screeny):
     for y in range(21):
       random.seed(x+screenx+((screeny + y)*21))
       randnum = ran()
-      if randnum < 7500:
+      if randnum < 3750:
         map.append(" ")
-      elif randnum >= 7500 and randnum < 9995:
+      elif randnum < 4982:
         map.append("^")
-      elif randnum < 10001:
+      elif randnum < 5001:
         map.append("T")
       else:
-        map.append("~")            
+        map.append("~")
   return map
-    
+
 print("starting infinite world!")
 
 camx = 128
@@ -39,14 +39,14 @@ while True:
   map[16+(y*21)]+map[17+(y*21)]+map[18+(y*21)]+map[19+(y*21)]+map[20+(y*21)])
   pinput = input() + "m"
   pinput = pinput[0]
-  if pinput == "a":
+  if pinput == "q":
     exit("game over!")
-  if pinput == "6" and not map[pindex+1] in pcollide[0:1]:
+  if pinput == "d" and not map[pindex+1] in pcollide[0:1]:
     camy += 1
-  if pinput == "4" and not map[pindex-1] in pcollide[0:1]:
+  if pinput == "a" and not map[pindex-1] in pcollide[0:1]:
     camy -= 1
-  if pinput == "8" and not map[pindex-21] in pcollide[0:1]:
+  if pinput == "w" and not map[pindex-21] in pcollide[0:1]:
     camx -= 1
-  if pinput == "2" and not map[pindex+21] in pcollide[0:1]:
+  if pinput == "s" and not map[pindex+21] in pcollide[0:1]:
     camx += 1    
  
