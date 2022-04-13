@@ -5,8 +5,8 @@ import cv2
 print("starting infinite world of AIDSrpg!")
 
 
-camx = -168
-camy = -168
+camx = 0
+camy = 0
 pindex = 496
 pcollide = ["∧", "🏠"] # If terrain character is in this array the player cannot move onto it.
 
