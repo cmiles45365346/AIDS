@@ -41,7 +41,7 @@ while True:
   map = generateCells(camy,camx)
   map[pindex] = "A"
   for y in range(32):
-    print(str(map[0+(y*32):32+(y*32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "1").replace("]", "1"))
+    print(str(map[0+(y*32):32+(y*32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "|").replace("]", "|"))
   pinput = input() + "m"
   pinput = pinput[0]
   if pinput == "q":
