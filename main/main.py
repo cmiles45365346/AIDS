@@ -17,13 +17,16 @@ def generateCells(screenx,screeny):
       randnum = ran() # generate cell number based off seed used
       
       if -168 < x+screenx > 168 or -168 < y+screeny > 168:       # World border
-        map.append("^")
+        map.append("∧")
       elif randnum < 4900:
         map.append(" ")
       elif randnum < 4982:
-        map.append("^")
+        map.append("∧")
       elif randnum < 5001:
         map.append("T")
+      elif randnum < 4991:
+        map.append("")
+
       else:
         map.append("~")
   return map # Returns generated map as output
@@ -35,7 +38,7 @@ print("starting infinite world of AIDSrpg!")
 camx = 128
 camy = 128
 pindex = 496
-pcollide = ["^", "T"] # If terrain character is in this array the player cannot move onto it.
+pcollide = ["∧", "T"] # If terrain character is in this array the player cannot move onto it.
 
 while True:
   map = generateCells(camy,camx)
