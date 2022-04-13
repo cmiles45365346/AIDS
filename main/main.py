@@ -16,7 +16,7 @@ def generateCells(screenx,screeny):
       random.seed(x+screenx+((y+screeny)*32)) # Get seed for cell in a real game might want to pass the number output as an md5 hash to make it more unpredictable.
       randnum = ran() # generate cell number based off seed used
       
-      if x+screenx > 168 or x+screenx < -168 or y+screeny < -168 or y+screeny > 168:       # World border
+      if x+screenx > 5000 or x+screenx < -5000 or y+screeny < -5000 or y+screeny > 5000:       # World border, 5000 is world borders size in a direction
         map.append("∧")
       elif randnum < 4900:
         map.append(" ")
