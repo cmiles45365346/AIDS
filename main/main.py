@@ -4,7 +4,7 @@ import cv2
 
 
 def ran():
-  return random.randint(1,5000)
+  return random.randint(1,5000) # Generates pseudo random number between 1 and 5000 for generation
 
 
 # Generates cells in square area offset by player position
@@ -15,10 +15,10 @@ def generateCells(screenx,screeny):
     for y in range(32):
       random.seed(x+screenx+((y+screeny)*32)) # Get seed for cell in a real game might want to pass the number output as an md5 hash to make it more unpredictable.
       randnum = ran() # generate cell number based off seed used
-
-      if -168 < x+screenx > 168 or -168 < y+screeny > 168:
+      
+      if -168 < x+screenx > 168 or -168 < y+screeny > 168:       # World border
         map.append("^")
-      elif randnum < 3750:
+      elif randnum < 4500:
         map.append(" ")
       elif randnum < 4982:
         map.append("^")
@@ -41,7 +41,7 @@ while True:
   map = generateCells(camy,camx)
   map[pindex] = "A"
   for y in range(32):
-    print(str(map[0+(y*32):32+(y*32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "|").replace("]", "|"))
+    print(str(map[0+(y*32):32+(y*32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "|").replace("]", "|")) # Displays map to console
   pinput = input() + "m"
   pinput = pinput[0]
   if pinput == "q":
