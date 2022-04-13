@@ -23,7 +23,7 @@ def generateCells(screenx,screeny):
       elif randnum < 4982:
         map.append("∧")
       elif randnum < 5001:
-        map.append("T")
+        map.append("🏠")
       elif randnum < 4991:
         map.append("")
 
@@ -38,7 +38,7 @@ print("starting infinite world of AIDSrpg!")
 camx = 128
 camy = 128
 pindex = 496
-pcollide = ["∧", "T"] # If terrain character is in this array the player cannot move onto it.
+pcollide = ["∧", "🏠"] # If terrain character is in this array the player cannot move onto it.
 
 while True:
   map = generateCells(camy,camx)
