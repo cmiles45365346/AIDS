@@ -16,7 +16,7 @@ while True:
   for y in range(32):
     print(str(map[0+(y*32):32+(y*32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "|").replace("]", "|")) # Displays map to console
   pinput = input() + "m"
-  pinput = pinput[0]
+  pinput = pinput[0].lower()
   if pinput == "q":
     exit("game shut down")
   if pinput == "d" and not map[pindex+1] in pcollide[0:len(pcollide)]:
