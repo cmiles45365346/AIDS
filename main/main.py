@@ -1,6 +1,6 @@
 import random
 import cv2
-
+# i love peanuts
 # screen 33*33
 
 
