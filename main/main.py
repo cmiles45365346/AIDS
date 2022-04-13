@@ -18,7 +18,7 @@ def generateCells(screenx,screeny):
       
       if -168 < x+screenx > 168 or -168 < y+screeny > 168:       # World border
         map.append("^")
-      elif randnum < 4500:
+      elif randnum < 4900:
         map.append(" ")
       elif randnum < 4982:
         map.append("^")
@@ -45,7 +45,7 @@ while True:
   pinput = input() + "m"
   pinput = pinput[0]
   if pinput == "q":
-    exit("game over!")
+    exit("game shut down")
   if pinput == "d" and not map[pindex+1] in pcollide[0:len(pcollide)]:
     camx += 1
   if pinput == "a" and not map[pindex-1] in pcollide[0:len(pcollide)]:
