@@ -1,6 +1,6 @@
 import random
 import cv2
-# screen 33*33
+# screen 32*32
 
 
 def ran():
