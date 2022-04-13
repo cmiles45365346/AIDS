@@ -1,19 +1,25 @@
 import random
+import cv2
 
-# screen 21*8
+# screen 33*33
 
 
 def ran():
   return random.randint(1,5000)
 
 
-def screen(screenx,screeny):
-  map = []
-  for x in range(21):
-    for y in range(21):
-      random.seed(x+screenx+((screeny + y)*21))
-      randnum = ran()
-      if randnum < 3750:
+# Generates cells in square area offset by player position
+# This could be improved by generating only cells that are needed offset by player position when missing. 
+def generateCells(screeny,screenx):
+  map = [] # Start with blank map
+  for x in range(33):
+    for y in range(33):
+      random.seed(x+screenx+((y+screeny)*33)) # Get seed for cell in a real game might want to pass the number output as an md5 hash to make it more unpredictable.
+      randnum = ran() # generate cell number based off seed used
+
+      if x+screenx > 168 or y+screeny > 168:
+        map.append("^")
+      elif randnum < 3750:
         map.append(" ")
       elif randnum < 4982:
         map.append("^")
@@ -21,32 +27,31 @@ def screen(screenx,screeny):
         map.append("T")
       else:
         map.append("~")
-  return map
+  return map # Returns generated map as output
 
-print("starting infinite world!")
 
-camx = 128
+print("starting infinite world of AIDSrpg!")
+
+
 camy = 128
-pindex = 367
-pcollide = ["^"]
+camx = 128
+pindex = 256
+pcollide = ["^", "T"] # If terrain character is in this array the player cannot move onto it.
 
 while True:
-  map = screen(camx,camy)
+  map = generateCells(camy,camx)
   map[pindex] = "A"
-  for y in range(21):
-    print(map[0+(y*21)]+map[1+(y*21)]+map[2+(y*21)]+map[3+(y*21)]+map[4+(y*21)]+map[5+(y*21)]+map[6+(y*21)]+map[7+(y*21)]+
-  map[8+(y*21)]+map[9+(y*21)]+map[10+(y*21)]+map[11+(y*21)]+map[12+y*21]+map[13+(y*21)]+map[14+(y*21)]+map[15+(y*21)]+
-  map[16+(y*21)]+map[17+(y*21)]+map[18+(y*21)]+map[19+(y*21)]+map[20+(y*21)])
+  for y in range(33):
+    print(str(map[0+(y*33):33+(y*33)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "1").replace("]", "1"))
   pinput = input() + "m"
   pinput = pinput[0]
   if pinput == "q":
     exit("game over!")
-  if pinput == "d" and not map[pindex+1] in pcollide[0:1]:
+  if pinput == "d" and not map[pindex+1] in pcollide[0:len(pcollide)]:
     camy += 1
-  if pinput == "a" and not map[pindex-1] in pcollide[0:1]:
+  if pinput == "a" and not map[pindex-1] in pcollide[0:len(pcollide)]:
     camy -= 1
-  if pinput == "w" and not map[pindex-21] in pcollide[0:1]:
+  if pinput == "w" and not map[pindex-33] in pcollide[0:len(pcollide)]:
     camx -= 1
-  if pinput == "s" and not map[pindex+21] in pcollide[0:1]:
-    camx += 1    
- 
+  if pinput == "s" and not map[pindex+33] in pcollide[0:len(pcollide)]:
+    camx += 1
