@@ -34,7 +34,7 @@ print("starting infinite world of AIDSrpg!")
 
 camx = 128
 camy = 128
-pindex = 256
+pindex = 496
 pcollide = ["^", "T"] # If terrain character is in this array the player cannot move onto it.
 
 while True:
