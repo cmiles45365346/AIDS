@@ -1,35 +1,5 @@
-import random
+import terrainGeneration.generalTerrain
 import cv2
-# screen 32*32
-
-
-def ran():
-  return random.randint(1,5000) # Generates pseudo random number between 1 and 5000 for generation
-
-
-# Generates cells in square area offset by player position
-# This could be improved by generating only cells that are needed offset by player position when missing. 
-def generateCells(screenx,screeny):
-  map = [] # Start with blank map
-  for x in range(32):
-    for y in range(32):
-      random.seed(x+screenx+((y+screeny)*32)) # Get seed for cell in a real game might want to pass the number output as an md5 hash to make it more unpredictable.
-      randnum = ran() # generate cell number based off seed used
-      
-      if x+screenx > 5000 or x+screenx < -5000 or y+screeny < -5000 or y+screeny > 5000:       # World border, 5000 is world borders size in a direction
-        map.append("∧")
-      elif randnum < 4900:
-        map.append(" ")
-      elif randnum < 4982:
-        map.append("∧")
-      elif randnum < 5001:
-        map.append("🏠")
-      elif randnum < 4991:
-        map.append("")
-
-      else:
-        map.append("~")
-  return map # Returns generated map as output
 
 
 print("starting infinite world of AIDSrpg!")
@@ -41,7 +11,7 @@ pindex = 496
 pcollide = ["∧", "🏠"] # If terrain character is in this array the player cannot move onto it.
 
 while True:
-  map = generateCells(camy,camx)
+  map = terrainGeneration.generalTerrain.generateCells(camy,camx)
   map[pindex] = "A"
   for y in range(32):
     print(str(map[0+(y*32):32+(y*32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[", "|").replace("]", "|")) # Displays map to console
