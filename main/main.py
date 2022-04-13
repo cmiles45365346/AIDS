@@ -16,7 +16,7 @@ def generateCells(screenx,screeny):
       random.seed(x+screenx+((y+screeny)*32)) # Get seed for cell in a real game might want to pass the number output as an md5 hash to make it more unpredictable.
       randnum = ran() # generate cell number based off seed used
       
-      if -168 < x+screenx > 168 or -168 < y+screeny > 168:       # World border
+      if x+screenx > 168 or x+screenx < -168 or y+screeny < -168 or y+screeny > 168:       # World border
         map.append("∧")
       elif randnum < 4900:
         map.append(" ")
@@ -35,8 +35,8 @@ def generateCells(screenx,screeny):
 print("starting infinite world of AIDSrpg!")
 
 
-camx = 128
-camy = 128
+camx = -168
+camy = -168
 pindex = 496
 pcollide = ["∧", "🏠"] # If terrain character is in this array the player cannot move onto it.
 
