@@ -1,11 +1,12 @@
-import terrainGeneration.generalTerrain as terrain
 import inventoryManager.inventoryManager as inventory
+import terrainGeneration.generalTerrain as terrain
 import displayController.screenManager as screen
 import combat.combatManager as combat
 import trade.tradeManager as trade
 
 print("starting infinite world of AIDSrpg!")
 
+screenDimensions = 32  # cells rendered in X and Y directions
 camx = 0
 camy = 0
 pindex = 496
@@ -14,8 +15,8 @@ pcollide = ["∧", "🏠"]  # If terrain character is in this array the player c
 while True:
     map = terrain.generateCells(camy, camx)
     map[pindex] = "A"
-    for y in range(32):
-        print(str(map[0 + (y * 32):32 + (y * 32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[","|").replace("]", "|"))  # Displays map to console
+    for y in range(screenDimensions):
+        print(str(map[0 + (y * screenDimensions):screenDimensions + (y * screenDimensions)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[","|").replace("]", "|"))  # Displays map to console
     pinput = input() + "m"
     pinput = pinput[0].lower()
     if pinput == "q":
