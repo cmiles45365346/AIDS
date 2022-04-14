@@ -1,4 +1,4 @@
-# map generated is 32*32
+# map generated is to dimensionSize in main
 import random
 
 
@@ -8,13 +8,13 @@ def ran():
 
 # Generates cells in square area offset by player position
 # This could be improved by generating only cells that are needed offset by player position when missing. 
-def generateCells(screenx, screeny):
+def generateCells(screenx, screeny, screenDimensions):
     map = []  # Start with blank map
-    for x in range(32):
-        for y in range(32):
+    for x in range(screenDimensions):
+        for y in range(screenDimensions):
             # Get seed for cell in a real game might want to pass the number output as a md5 hash to make it more
             # unpredictable.
-            random.seed(x + screenx + ((y + screeny) * 32))
+            random.seed(x + screenx + ((y + screeny) * screenDimensions))
             randnum = ran()  # generate cell number based off seed used
 
             if x + screenx > 5000 or x + screenx < -5000 or y + screeny < -5000 or y + screeny > 5000:  # World border, 5000 is world borders size in a direction

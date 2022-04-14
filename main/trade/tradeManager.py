@@ -1,7 +1,7 @@
 # Checks if a trade can be made
-def checkTradeAvailable(map, pindex):
+def checkTradeAvailable(map, pindex, screenDimensions):
     if map[pindex + 1] in ptrade[0:len(ptrade)] or map[pindex - 1] in ptrade[0:len(ptrade)] or \
-            map[pindex - 32] in ptrade[0:len(ptrade)] or map[pindex + 32] in ptrade[0:len(ptrade)]:
+            map[pindex - screenDimensions] in ptrade[0:len(ptrade)] or map[pindex + screenDimensions] in ptrade[0:len(ptrade)]:
         return True
     return False
 
