@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 
 
 def createBlank(x, y):
@@ -7,8 +8,8 @@ def createBlank(x, y):
 
 
 def renderScreen(image, map, screenDimensions):
-    for y in range(len(image)):
-        for x in range(len(image[0])):
+    for y in range(screenDimensions):
+        for x in range(screenDimensions):
             image[len(textures):len(textures)] = textures[len(textures[0]):len(textures[0])]  # This line is incomplete
     return image
 
