@@ -25,9 +25,6 @@ def generateCells(screenx, screeny):
                 map.append("∧")
             elif randnum < 5001:
                 map.append("🏠")
-            elif randnum < 4991:
-                map.append("")
-
             else:
                 map.append("~")
     return map  # Returns generated map as output
