@@ -1,5 +1,6 @@
-import terrainGeneration.generalTerrain
-import inventoryManager.inventory
+import terrainGeneration.generalTerrain as terrain
+import inventoryManager.inventory as inventory
+import displayController.screen as screen
 import cv2
 
 print("starting infinite world of AIDSrpg!")
@@ -10,7 +11,7 @@ pindex = 496
 pcollide = ["∧", "🏠"]  # If terrain character is in this array the player cannot move onto it.
 
 while True:
-    map = terrainGeneration.generalTerrain.generateCells(camy, camx)
+    map = terrain.generateCells(camy, camx)
     map[pindex] = "A"
     for y in range(32):
         print(str(map[0 + (y * 32):32 + (y * 32)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[",
