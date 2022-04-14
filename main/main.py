@@ -10,7 +10,7 @@ if __name__ == '__main__':
     screenDimensions = 32  # cells rendered in X and Y directions
     camx = 0
     camy = 0
-    pindex = 496
+    pindex = screenDimensions ** 2 - screenDimensions // 2
     pcollide = ["∧", "🏠"]  # If terrain character is in this array the player cannot move onto it.
 
     while True:

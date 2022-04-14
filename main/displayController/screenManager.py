@@ -3,15 +3,16 @@ import cv2
 
 
 def createBlank(x, y):
-    np.zeros((x, y, 3), np.uint8)
+    return np.zeros((x, y, 3), np.uint8)
 
 
-def renderScreen(texture, image, map):
-    pass
+def renderScreen(image, textures, map, x, y):
+    return image
 
 
 def displayScreen(image):
-    pass
+    cv2.imshow("", image)
+    cv2.waitKey(1)
 
 
 if __name__ == '__main__':
