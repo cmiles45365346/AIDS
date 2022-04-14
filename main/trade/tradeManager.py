@@ -6,7 +6,7 @@ def checkTradeAvailable(map, pindex):
     return False
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     exit(0)
 else:
-    ptrade = ["🏠"]
+    ptrade = ['🏠']

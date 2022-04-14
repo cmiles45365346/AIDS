@@ -28,3 +28,7 @@ def generateCells(screenx, screeny):
             else:
                 map.append("~")
     return map  # Returns generated map as output
+
+
+if __name__ == '__main__':
+    exit(0)
