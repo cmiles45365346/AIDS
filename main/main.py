@@ -36,6 +36,10 @@ if __name__ == '__main__':
                 print("Trade can be done")
             else:
                 print("Trade cannot be done")
+            if combat.checkEnemyNearby(map, pindex):
+                print("Enemy nearby")
+            else:
+                print("no enemy nearby")
         if pinput == "e":  # Opens the inventory so the player can use it.
             pass
 else:
