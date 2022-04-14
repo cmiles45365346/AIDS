@@ -1,6 +1,7 @@
 import terrainGeneration.generalTerrain as terrain
 import inventoryManager.inventoryManager as inventory
 import displayController.screenManager as screen
+import trade.tradeManager as trade
 
 print("starting infinite world of AIDSrpg!")
 
@@ -8,7 +9,6 @@ camx = 0
 camy = 0
 pindex = 496
 pcollide = ["∧", "🏠"]  # If terrain character is in this array the player cannot move onto it.
-ptrade = ["🏠"]
 
 while True:
     map = terrain.generateCells(camy, camx)
@@ -28,7 +28,10 @@ while True:
         camy -= 1
     if pinput == "s" and not map[pindex + 32] in pcollide[0:len(pcollide)]:
         camy += 1
-    if pinput == "t" and map[pindex + 1] in ptrade[0:len(pcollide)] or map[pindex - 1] in ptrade[0:len(pcollide)]:
-        pass
+    if pinput == "t":
+        if trade.checkTradeAvailable(map, pindex):
+            print("Trade can be done")
+        else:
+            print("Trade cannot be done")
     if pinput == "e":  # Opens the inventory so the player can use it.
         pass
