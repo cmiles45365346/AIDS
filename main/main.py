@@ -1,6 +1,7 @@
 import terrainGeneration.generalTerrain as terrain
 import inventoryManager.inventoryManager as inventory
 import displayController.screenManager as screen
+import combat.combatManager as combat
 import trade.tradeManager as trade
 
 print("starting infinite world of AIDSrpg!")
