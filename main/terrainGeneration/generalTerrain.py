@@ -19,11 +19,13 @@ def generateCells(screenx, screeny):
 
             if x + screenx > 5000 or x + screenx < -5000 or y + screeny < -5000 or y + screeny > 5000:  # World border, 5000 is world borders size in a direction
                 map.append("∧")
-            elif randnum < 4900:
+            elif randnum < 4900:  # generates empty space
                 map.append(" ")
-            elif randnum < 4982:
+            elif randnum < 4940:  # generates enemies
+                map.append("E")
+            elif randnum < 4982:  # generates mountains
                 map.append("∧")
-            elif randnum < 5001:
+            elif randnum < 5001:  # generates traders
                 map.append("🏠")
             else:
                 map.append("~")

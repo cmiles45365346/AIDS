@@ -8,13 +8,13 @@ if __name__ == '__main__':
     print("starting infinite world of AIDSrpg!")
 
     screenDimensions = 32  # cells rendered in X and Y directions
-    camx = 0
-    camy = 0
+    playerx = 0
+    playery = 0
     pindex = 496
     pcollide = ["∧", "🏠"]  # If terrain character is in this array the player cannot move onto it.
 
     while True:
-        map = terrain.generateCells(camy, camx)
+        map = terrain.generateCells(playery, playerx)
         map[pindex] = "A"
         for y in range(screenDimensions):
             print(str(map[0 + (y * screenDimensions):screenDimensions + (y * screenDimensions)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[","|").replace("]", "|"))  # Displays map to console
@@ -24,13 +24,13 @@ if __name__ == '__main__':
             exit("game shut down")
         # General controls for movement in game
         if pinput == "d" and not map[pindex + 1] in pcollide[0:len(pcollide)]:
-            camx += 1
+            playerx += 1
         if pinput == "a" and not map[pindex - 1] in pcollide[0:len(pcollide)]:
-            camx -= 1
+            playerx -= 1
         if pinput == "w" and not map[pindex - 32] in pcollide[0:len(pcollide)]:
-            camy -= 1
+            playery -= 1
         if pinput == "s" and not map[pindex + 32] in pcollide[0:len(pcollide)]:
-            camy += 1
+            playery += 1
         if pinput == "t":
             if trade.checkTradeAvailable(map, pindex):
                 print("Trade can be done")
