@@ -11,7 +11,6 @@ def renderScreen(image, gameMap, screenDimensions):
     for y in range(screenDimensions):
         for x in range(screenDimensions):
             texturesID = 0
-            print(x+(y*screenDimensions), len(gameMap))
             try:
                 while textures[texturesID] != gameMap[x+(y*screenDimensions)]:
                     texturesID += 2
