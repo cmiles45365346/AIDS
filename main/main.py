@@ -12,7 +12,7 @@ if __name__ == '__main__':
     playerx = 0
     playery = 0
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
-    pcollide = ["∧", "🏠"]  # If terrain character is in this array the player cannot move onto it.
+    pcollide = ["∧", "a"]  # If terrain character is in this array the player cannot move onto it.
 
     while True:
         gameMap = terrain.generateCells(playery, playerx, screenDimensions)
@@ -21,5 +21,6 @@ if __name__ == '__main__':
         image = screen.renderScreen(image, gameMap, screenDimensions)
         screen.displayScreen(image)
         playerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)
+        time.sleep(0.05) # forcefully sets max fps to 20 fps with no consideration of how much time passed
 else:
     exit("You cannot use main as an import as it is not a library")
