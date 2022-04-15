@@ -16,11 +16,11 @@ if __name__ == '__main__':
 
     while True:
         gameMap = terrain.generateCells(playery, playerx, screenDimensions)
+        gameMap[pindex] = "A"
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)
         while True:
             screen.displayScreen(image)
-        gameMap[pindex] = "A"
         for y in range(screenDimensions):
             print(str(gameMap[0 + (y * screenDimensions):screenDimensions + (y * screenDimensions)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[","|").replace("]", "|"))  # Displays map to console
         pinput = input() + "m"
