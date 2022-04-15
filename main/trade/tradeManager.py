@@ -11,4 +11,4 @@ def checkTradeAvailable(gameMap, pindex, screenDimensions):
 if __name__ == '__main__':
     exit(0)
 else:
-    ptrade = ['🏠']
+    ptrade = ['a']
