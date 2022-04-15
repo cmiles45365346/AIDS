@@ -20,6 +20,6 @@ if __name__ == '__main__':
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)
         screen.displayScreen(image)
-        aplayerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)
+        playerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)
 else:
     exit("You cannot use main as an import as it is not a library")

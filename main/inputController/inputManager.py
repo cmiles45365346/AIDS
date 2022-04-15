@@ -4,16 +4,16 @@ import keyboard
 
 
 def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery):
-    if keyboard.is_pressed("q"):
+    if keyboard.is_pressed("esc"):
         exit("game shut down")
-    # General controls for inputController in game
-    if keyboard.is_pressed("d") and not gameMap[pindex + 1] in pcollide[0:len(pcollide)]:
+    # Controls in game
+    if keyboard.is_pressed("s") and not gameMap[pindex + 1] in pcollide[0:len(pcollide)]:
         playerx += 1
-    if keyboard.is_pressed("a") and not gameMap[pindex - 1] in pcollide[0:len(pcollide)]:
+    if keyboard.is_pressed("w") and not gameMap[pindex - 1] in pcollide[0:len(pcollide)]:
         playerx -= 1
-    if keyboard.is_pressed("w") and not gameMap[pindex - screenDimensions] in pcollide[0:len(pcollide)]:
+    if keyboard.is_pressed("a") and not gameMap[pindex - screenDimensions] in pcollide[0:len(pcollide)]:
         playery -= 1
-    if keyboard.is_pressed("s") and not gameMap[pindex + screenDimensions] in pcollide[0:len(pcollide)]:
+    if keyboard.is_pressed("d") and not gameMap[pindex + screenDimensions] in pcollide[0:len(pcollide)]:
         playery += 1
     if keyboard.is_pressed("t"):
         if trade.checkTradeAvailable(gameMap, pindex, screenDimensions):
