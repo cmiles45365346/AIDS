@@ -26,7 +26,7 @@ def generateCells(screenx, screeny, screenDimensions):
             elif randnum < 4982:  # generates mountains
                 gameMap.append("∧")
             elif randnum < 5001:  # generates traders
-                gameMap.append("🏠")
+                gameMap.append("a")
             else:
                 gameMap.append("~")
     return gameMap  # Returns generated map as output

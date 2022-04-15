@@ -34,6 +34,7 @@ else:
         "∧", cv2.imread("assets/mountain.png"),  # ∧ is mountain symbol not ^ comparison ∧^ we will change this later.
         "🏠", cv2.imread("assets/trader.png"),
         "A", cv2.imread("assets/player.png"),
+        "a", cv2.imread("assets/player.png"),
         "E", cv2.imread("assets/enemy.png")
     ]  # Symbol, texture,
     image = createBlank(512, 512)
