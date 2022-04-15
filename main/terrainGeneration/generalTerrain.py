@@ -9,7 +9,7 @@ def ran():
 # Generates cells in square area offset by player position
 # This could be improved by generating only cells that are needed offset by player position when missing. 
 def generateCells(screenx, screeny, screenDimensions):
-    map = []  # Start with blank map
+    gameMap = []  # Start with blank map
     for x in range(screenDimensions):
         for y in range(screenDimensions):
             # Get seed for cell in a real game might want to pass the number output as a md5 hash to make it more
@@ -18,18 +18,18 @@ def generateCells(screenx, screeny, screenDimensions):
             randnum = ran()  # generate cell number based off seed used
 
             if x + screenx > 5000 or x + screenx < -5000 or y + screeny < -5000 or y + screeny > 5000:  # World border, 5000 is world borders size in a direction
-                map.append("∧")
+                gameMap.append("∧")
             elif randnum < 4900:  # generates empty space
-                map.append(" ")
+                gameMap.append(" ")
             elif randnum < 4940:  # generates enemies
-                map.append("E")
+                gameMap.append("E")
             elif randnum < 4982:  # generates mountains
-                map.append("∧")
+                gameMap.append("∧")
             elif randnum < 5001:  # generates traders
-                map.append("🏠")
+                gameMap.append("🏠")
             else:
-                map.append("~")
-    return map  # Returns generated map as output
+                gameMap.append("~")
+    return gameMap  # Returns generated map as output
 
 
 if __name__ == '__main__':

@@ -32,6 +32,15 @@ t - trade with npc
 World
 ---
 ---
-could be  
+could be infinite, but we made a world border, so you don't just walk off
+infinitely in a direction.
+
+---
+
+Story
+---
+---
+you can follow the story if you want, or you could make your own with
+our map editor.
 
 ---

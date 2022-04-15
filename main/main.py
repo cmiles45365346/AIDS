@@ -3,6 +3,7 @@ import terrainGeneration.generalTerrain as terrain
 import displayController.screenManager as screen
 import combat.combatManager as combat
 import trade.tradeManager as trade
+import time
 
 if __name__ == '__main__':
     print("starting infinite world of AIDSrpg!")
@@ -14,29 +15,33 @@ if __name__ == '__main__':
     pcollide = ["∧", "🏠"]  # If terrain character is in this array the player cannot move onto it.
 
     while True:
-        map = terrain.generateCells(playery, playerx, screenDimensions)
-        map[pindex] = "A"
+        gameMap = terrain.generateCells(playery, playerx, screenDimensions)
+        image = screen.createBlank(512, 512)
+        image = screen.renderScreen(image, gameMap, screenDimensions)
+        while True:
+            screen.displayScreen(image)
+        gameMap[pindex] = "A"
         for y in range(screenDimensions):
-            print(str(map[0 + (y * screenDimensions):screenDimensions + (y * screenDimensions)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[","|").replace("]", "|"))  # Displays map to console
+            print(str(gameMap[0 + (y * screenDimensions):screenDimensions + (y * screenDimensions)]).replace("\'", "", 99999).replace(",", "", 99999).replace("[","|").replace("]", "|"))  # Displays map to console
         pinput = input() + "m"
         pinput = pinput[0].lower()
         if pinput == "q":
             exit("game shut down")
         # General controls for movement in game
-        if pinput == "d" and not map[pindex + 1] in pcollide[0:len(pcollide)]:
+        if pinput == "d" and not gameMap[pindex + 1] in pcollide[0:len(pcollide)]:
             playerx += 1
-        if pinput == "a" and not map[pindex - 1] in pcollide[0:len(pcollide)]:
+        if pinput == "a" and not gameMap[pindex - 1] in pcollide[0:len(pcollide)]:
             playerx -= 1
-        if pinput == "w" and not map[pindex - screenDimensions] in pcollide[0:len(pcollide)]:
+        if pinput == "w" and not gameMap[pindex - screenDimensions] in pcollide[0:len(pcollide)]:
             playery -= 1
-        if pinput == "s" and not map[pindex + screenDimensions] in pcollide[0:len(pcollide)]:
+        if pinput == "s" and not gameMap[pindex + screenDimensions] in pcollide[0:len(pcollide)]:
             playery += 1
         if pinput == "t":
-            if trade.checkTradeAvailable(map, pindex, screenDimensions):
+            if trade.checkTradeAvailable(gameMap, pindex, screenDimensions):
                 print("Trade can be done")
             else:
                 print("Trade cannot be done")
-            if combat.checkEnemyNearby(map, pindex):
+            if combat.checkEnemyNearby(gameMap, pindex):
                 print("Enemy nearby")
             else:
                 print("no enemy nearby")

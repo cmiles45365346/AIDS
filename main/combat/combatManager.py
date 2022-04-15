@@ -3,6 +3,7 @@ def checkEnemyNearby(map, pindex):
         return True
     return False
 
+
 if __name__ == '__main__':
     exit(0)
 else:
