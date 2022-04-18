@@ -1,5 +1,5 @@
-import AIDS.main.combat.combatManager as combat
-import AIDS.main.trade.tradeManager as trade
+import combat.combatManager as combat
+import trade.tradeManager as trade
 import keyboard
 
 
