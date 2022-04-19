@@ -7,6 +7,18 @@ def checkEnemyNearby(map, pindex, screenDimensions):
     return False
 
 
+def genEnemies():
+    pass
+
+
+def moveStraightTowardsPlayer():
+    pass
+
+
+def attackPlayer():
+    pass
+
+
 if __name__ == '__main__':
     exit(0)
 else:
