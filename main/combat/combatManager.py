@@ -1,5 +1,8 @@
-def checkEnemyNearby(map, pindex):
-    if map[pindex] in penemy[0:len(penemy)]:
+def checkEnemyNearby(map, pindex, screenDimensions):
+    if map[pindex + 1] in penemy[0:len(penemy)] or \
+            map[pindex - 1] in penemy[0:len(penemy)] or \
+            map[pindex - screenDimensions] in penemy[0:len(penemy)] or \
+            map[pindex + screenDimensions] in penemy[0:len(penemy)]:
         return True
     return False
 

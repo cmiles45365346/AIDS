@@ -20,7 +20,7 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
             print("Trade can be done")
         else:
             print("Trade cannot be done")
-        if combat.checkEnemyNearby(gameMap, pindex):
+        if combat.checkEnemyNearby(gameMap, pindex, screenDimensions):
             print("Enemy nearby")
         else:
             print("no enemy nearby")
