@@ -8,6 +8,7 @@ if __name__ == '__main__':
     print("Finished imports")
     print("starting infinite world of AIDSrpg!")
 
+    fpsLimit = 30
     screenDimensions = 32  # cells rendered in X and Y directions
     playerx = 0
     playery = 0
@@ -22,8 +23,7 @@ if __name__ == '__main__':
         image = screen.renderScreen(image, gameMap, screenDimensions)
         screen.displayScreen(image)
         playerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)
-        print(time.time() - currentTime)
-        # time.sleep(0.05) # forcefully sets max fps to 20 fps with no consideration of how much time passed
-        # we decided combat will be turned based nad the game will run at 30 fps.
+        if time.time() - currentTime < 1 / fpsLimit:
+            time.sleep(currentTime - time.time() + (1 / fpsLimit))
 else:
     exit("You cannot use main as an import as it is not a library")
