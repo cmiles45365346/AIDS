@@ -1,10 +1,14 @@
-def checkEnemyNearby(map, pindex, screenDimensions):
-    if map[pindex + 1] in penemy[0:len(penemy)] or \
-            map[pindex - 1] in penemy[0:len(penemy)] or \
-            map[pindex - screenDimensions] in penemy[0:len(penemy)] or \
-            map[pindex + screenDimensions] in penemy[0:len(penemy)]:
+def checkEnemyNearby(gameMap, pindex, screenDimensions):
+    if gameMap[pindex + 1] in penemy[0:len(penemy)] or \
+            gameMap[pindex - 1] in penemy[0:len(penemy)] or \
+            gameMap[pindex - screenDimensions] in penemy[0:len(penemy)] or \
+            gameMap[pindex + screenDimensions] in penemy[0:len(penemy)]:
         return True
     return False
+
+
+def shitCombat(gameMap, pindex, screenDimensions):
+    pass
 
 
 def genEnemies():

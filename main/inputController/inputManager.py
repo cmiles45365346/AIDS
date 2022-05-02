@@ -15,15 +15,16 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
         playery -= 1
     if keyboard.is_pressed("d") and not gameMap[pindex + screenDimensions] in pcollide[0:len(pcollide)]:
         playery += 1
-    if keyboard.is_pressed("t"):
+    if keyboard.is_pressed("t"):  # checks if a trader is nearby
         if trade.checkTradeAvailable(gameMap, pindex, screenDimensions):
             print("Trade can be done")
         else:
             print("Trade cannot be done")
+    if keyboard.is_pressed("f"):  # checks if enemy is nearby to engage in combat
         if combat.checkEnemyNearby(gameMap, pindex, screenDimensions):
-            print("Enemy nearby")
+            print("combat go brrr")
         else:
-            print("no enemy nearby")
+            print('no enemy nearby')
     if keyboard.is_pressed("e"):  # Opens the inventory so the player can use it.
         pass
     return playerx, playery
