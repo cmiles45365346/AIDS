@@ -19,10 +19,8 @@ def generateCells(screenx, screeny, screenDimensions):
 
             if x + screenx > 5000 or x + screenx < -5000 or y + screeny < -5000 or y + screeny > 5000:  # World border, 5000 is world borders size in a direction
                 gameMap.append("∧")
-            elif randnum < 4900:  # generates empty space
+            elif randnum < 4940:  # generates empty space
                 gameMap.append(" ")
-            elif randnum < 4940:  # generates enemies
-                gameMap.append("E")
             elif randnum < 4982:  # generates mountains
                 gameMap.append("∧")
             elif randnum < 5001:  # generates traders
@@ -30,6 +28,15 @@ def generateCells(screenx, screeny, screenDimensions):
             else:
                 gameMap.append("~")
     return gameMap  # Returns generated map as output
+
+
+def cellsOverlay(gameMap, screenDimensions):
+    for x in range(screenDimensions):
+        for y in range(screenDimensions):
+            # Get seed for cell in a real game might want to pass the number output as a md5 hash to make it more
+            # unpredictable.
+            ID = 0
+    return gameMap
 
 
 if __name__ == '__main__':
