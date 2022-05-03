@@ -2,6 +2,7 @@ import terrainGeneration.generalTerrain as terrain
 import inventory.inventoryManager as inventory
 import display.screenManager as screen
 import inputController.inputManager as playerInput
+import combat.combatManager as combat
 import time
 
 if __name__ == '__main__':
@@ -18,6 +19,7 @@ if __name__ == '__main__':
     while True:
         currentTime = time.time()
         gameMap = terrain.generateCells(playery, playerx, screenDimensions)
+        enemyMap = combat.renderEnemy()
         gameMap[pindex] = "A"
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)

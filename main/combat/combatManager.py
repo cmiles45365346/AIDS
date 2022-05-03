@@ -22,7 +22,13 @@ def attackPlayer():
     pass
 
 
+def renderEnemy(gameMap, screenDimensions):
+    pass
+
+
+
 if __name__ == '__main__':
     exit(0)
 else:
     penemy = ['E']
+    penemies = []
