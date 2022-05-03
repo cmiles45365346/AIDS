@@ -22,7 +22,8 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
             print("Trade cannot be done")
     if keyboard.is_pressed("f"):  # checks if enemy is nearby to engage in combat
         if combat.checkEnemyNearby(gameMap, pindex, screenDimensions):
-            print("combat go brrr")
+            print("engaging combat")
+            combat.badCombat(gameMap, pindex, screenDimensions)
         else:
             print('no enemy nearby')
     if keyboard.is_pressed("e"):  # Opens the inventory so the player can use it.

@@ -7,9 +7,8 @@ def checkEnemyNearby(gameMap, pindex, screenDimensions):
     return False
 
 
-def shitCombat(gameMap, pindex, screenDimensions):
+def badCombat(gameMap, pindex, screenDimensions):  # temporary combat(?)
     pass
-
 
 def genEnemies():
     pass
