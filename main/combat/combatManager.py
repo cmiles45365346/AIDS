@@ -8,7 +8,9 @@ def checkEnemyNearby(gameMap, pindex, screenDimensions):
 
 
 def badCombat(gameMap, pindex, screenDimensions):  # temporary combat(?)
+    print('combat engaged')
     pass
+
 
 def genEnemies():
     pass
@@ -23,7 +25,7 @@ def attackPlayer():
 
 
 def renderEnemy(gameMap, screenDimensions):
-    pass
+    return gameMap
 
 
 

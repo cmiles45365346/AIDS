@@ -16,6 +16,7 @@ if __name__ == '__main__':
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
     pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
 
+
     while True:
         currentTime = time.time()
         gameMap = terrain.generateCells(playery, playerx, screenDimensions)
