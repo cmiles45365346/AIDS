@@ -32,7 +32,7 @@ def savePlayerInventory():
 def openInventory():
     with open(inventoryFileName) as f:  # opens the file again, works probably cause not >,'w'
         info = json.load(f)  # saves the file into a variable
-    print('inventory conents:', info)  # prints the saved data
+    print('inventory contents:', info)  # prints the saved data
     pass
 
 
