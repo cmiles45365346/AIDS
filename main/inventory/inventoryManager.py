@@ -19,9 +19,24 @@ def getPlayerInventory():
 
 
 def savePlayerInventory():
+    data = {
+        'items': [
+            'sword'
+        ]
+    }
+    with open(inventoryFileName, 'w') as f:  # opens the inventory file
+        json.dump(data, f, indent=2)  # writes to the file
+        #  close(inventoryFileName)
+
+
+def openInventory():
+    with open(inventoryFileName) as f:  # opens the file again, works probably cause not >,'w'
+        info = json.load(f)  # saves the file into a variable
+    print('inventory conents:', info)  # prints the saved data
     pass
 
 
 if __name__ == '__main__':
-    inventoryFileName = "playerInventory.json"
     exit(0)
+else:
+    inventoryFileName = "playerInventory.json"

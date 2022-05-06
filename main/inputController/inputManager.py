@@ -1,4 +1,5 @@
 import combat.combatManager as combat
+import inventory.inventoryManager as inventory
 import trade.tradeManager as trade
 import keyboard
 
@@ -25,6 +26,8 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
             combat.badCombat(gameMap, pindex, screenDimensions)
         else:
             print('no enemy nearby')
-    if keyboard.is_pressed("e"):  # Opens the inventory so the player can use it.
-        pass
+
+    if keyboard.is_pressed("e"):  # Opens the inventory when the player presses 'e' so the player can use it.
+        inventory.openInventory()
+
     return playerx, playery

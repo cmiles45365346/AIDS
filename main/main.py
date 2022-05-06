@@ -15,7 +15,8 @@ if __name__ == '__main__':
     playery = 0
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
     pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
-
+    inventory.checkIfPlayerInventoryExistsAndCreateItIfItDoesNot()
+    inventory.savePlayerInventory()
 
     while True:
         currentTime = time.time()
