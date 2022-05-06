@@ -13,7 +13,7 @@ def badCombat(gameMap, pindex, screenDimensions):  # temporary combat(?)
 
 
 def genEnemies():
-    pass
+    penemies[0] = "E"
 
 
 def moveStraightTowardsPlayer():
@@ -26,7 +26,6 @@ def attackPlayer():
 
 def renderEnemy(gameMap, screenDimensions):
     return gameMap
-
 
 
 if __name__ == '__main__':
