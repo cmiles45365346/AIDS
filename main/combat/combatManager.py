@@ -32,4 +32,4 @@ if __name__ == '__main__':
     exit(0)
 else:
     penemy = ['E']
-    penemies = []
+    penemies = []  # x, y, level, xp dropped in death
