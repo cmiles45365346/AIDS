@@ -21,7 +21,7 @@ if __name__ == '__main__':
     while True:
         currentTime = time.time()
         gameMap = terrain.generateCells(playery, playerx, screenDimensions)
-        gameMap = combat.renderEnemy(gameMap, screenDimensions)
+        gameMap = combat.renderEnemy(gameMap, screenDimensions, playerx, playery)
         gameMap[pindex] = "A"
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)
