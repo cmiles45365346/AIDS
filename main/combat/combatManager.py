@@ -27,10 +27,8 @@ def attackPlayer():
 def renderEnemy(gameMap, screenDimensions, playerx, playery):
     for enemy in penemies:
         if 0 <= enemy[0] - playerx < 32:
-           if 0 <= enemy[1] - playery < 32:
+            if 0 <= enemy[1] - playery < 32:
                 gameMap[(enemy[0] - playerx) - (playery - enemy[1]) * screenDimensions] = "E"
-    #for enemy in range(len(penemies) // 4):
-    #    gameMap[penemies[enemy] + penemies[enemy + 1] * 32] = "E"
     return gameMap
 
 
