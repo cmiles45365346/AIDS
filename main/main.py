@@ -17,6 +17,7 @@ if __name__ == '__main__':
     pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
     inventory.checkIfPlayerInventoryExistsAndCreateItIfItDoesNot()
     inventory.savePlayerInventory()
+    combat.genEnemies(playerx, playery)  # Actually random because seed not set yet
 
     while True:
         currentTime = time.time()
