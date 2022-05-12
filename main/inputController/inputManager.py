@@ -11,12 +11,17 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
     # Controls in game
     if keyboard.is_pressed("s") and not gameMap[pindex + 1] in pcollide[0:len(pcollide)]:
         playerx += 1
+        pindex += 1  # added 1 to prevent clipping
     if keyboard.is_pressed("w") and not gameMap[pindex - 1] in pcollide[0:len(pcollide)]:
         playerx -= 1
+        pindex -= 1  # subtracted 1 to prevent clipping
     if keyboard.is_pressed("a") and not gameMap[pindex - screenDimensions] in pcollide[0:len(pcollide)]:
         playery -= 1
+        pindex -= 1 * screenDimensions  # subtracted 1 multiplied by screenDimensions to prevent clipping
     if keyboard.is_pressed("d") and not gameMap[pindex + screenDimensions] in pcollide[0:len(pcollide)]:
         playery += 1
+        pindex += 1 * screenDimensions  # added 1 multiplied by screenDimensions to prevent clipping
+
     if keyboard.is_pressed("t"):  # checks if a trader is nearby to trade
         if trade.checkTradeAvailable(gameMap, pindex, screenDimensions):
             print("Trade can be done")

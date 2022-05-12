@@ -9,25 +9,30 @@ if __name__ == '__main__':
     print("Finished imports")
     print("starting infinite world of AIDSrpg!")
 
-    fpsLimit = 30
+    fpsLimit = 30  # Limit of how many frames are rendered per second
     screenDimensions = 32  # cells rendered in X and Y directions
-    playerx = 0
-    playery = 0
+    playerx = 0  # the players x coordinate
+    playery = 0  # the players y coordinate
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
-    pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
+    pcollide = ["∧", "a", "E"]  # The player cannot move onto these characters
     inventory.checkIfPlayerInventoryExistsAndCreateItIfItDoesNot()
     inventory.savePlayerInventory()
-    combat.genEnemies(playerx, playery)  # Actually random because seed not set yet
+    for i in range(1000):
+        combat.genEnemies(playerx, playery)  # Actually random because seed not set yet
 
     while True:
         currentTime = time.time()
+
         gameMap = terrain.generateCells(playery, playerx, screenDimensions)
         gameMap = combat.renderEnemy(gameMap, screenDimensions, playerx, playery)
-        gameMap[pindex] = "A"
+        gameMap[pindex] = "A"  # Players character is A
+
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)
         screen.displayScreen(image)
+
         playerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)
+
         if time.time() - currentTime < 1 / fpsLimit:
             time.sleep(currentTime - time.time() + (1 / fpsLimit))
 else:

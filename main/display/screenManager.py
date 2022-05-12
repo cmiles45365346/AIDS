@@ -7,7 +7,7 @@ def createBlank(x, y):  # Returns a black image of size x, y.
     return np.zeros((x, y, 3), np.uint8)
 
 
-def renderScreen(image, gameMap, screenDimensions):
+def renderScreen(image, gameMap, screenDimensions):  # Renders onto the blank screen.
     for y in range(screenDimensions):
         for x in range(screenDimensions):
             texturesID = 0
