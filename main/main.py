@@ -17,7 +17,7 @@ if __name__ == '__main__':
     pcollide = ["∧", "a", "E"]  # The player cannot move onto these characters
     inventory.checkIfPlayerInventoryExistsAndCreateItIfItDoesNot()
     inventory.savePlayerInventory()
-    for i in range(1000):
+    for i in range(500):  # Generates 500 random enemies around the player
         combat.genEnemies(playerx, playery)  # Actually random because seed not set yet
 
     while True:
