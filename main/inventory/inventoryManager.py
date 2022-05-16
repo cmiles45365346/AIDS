@@ -14,26 +14,18 @@ def getPlayerInventory():
     print("Loading player inventory data")
     data = json.load(file)
 
-    print("Decoded data from json file")
+    print(data)
     file.close()
 
 
 def savePlayerInventory():
-    data = {
-        'items': [
-            'sword'
-        ]
-    }
-    with open(inventoryFileName, 'w') as f:  # opens the inventory file
-        json.dump(data, f, indent=2)  # writes to the file
-        #  close(inventoryFileName)
+    pass
 
 
 def openInventory():
     with open(inventoryFileName) as f:  # opens the file again, works probably cause not >,'w'
-        info = json.load(f)  # saves the file into a variable
-    print('inventory contents:', info)  # prints the saved data
-    pass
+        items = json.load(f)  # saves the file into a variable
+    print('inventory contents:', items)  # prints the saved data
 
 
 if __name__ == '__main__':
