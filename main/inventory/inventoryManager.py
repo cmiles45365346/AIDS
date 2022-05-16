@@ -25,9 +25,10 @@ def openInventory():
     with open(inventoryFileName, "rb") as file:
         inventory = pickle.load(file)
     for index in inventory:
+        print(index)
         for key in index.keys():
             print(key)
-            print(inventory[key])
+            print(index[key])
     print("Loading player inventory data")
     print('inventory contents:', inventory)  # prints the saved data
 
