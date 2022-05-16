@@ -33,7 +33,6 @@ def genEnemies(playerx, playery):  # Generates a single enemy around the player 
     :param playery: the players y coordinate
     :return: nothing yet just appends to a public array
     """
-    print("a")
     penemies.append([playerx + random.randint(-32, 32), playery + random.randint(-32, 32), 0, 4, 0])
 
 
