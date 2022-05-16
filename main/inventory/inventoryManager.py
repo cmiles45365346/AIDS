@@ -4,7 +4,7 @@ import os
 def checkIfPlayerInventoryExistsAndCreateItIfItDoesNot():
     if os.path.exists(inventoryFileName):
         return True
-    inventory = {"item1": "sword", "item2": "item"}
+    inventory = [{"item1": "sword"}]
     #print(inventory.keys()) use this to get possible functions to use with the dictionary
     with open(inventoryFileName, "wb") as file:
         pickle.dump(inventory, file)
@@ -24,10 +24,10 @@ def savePlayerInventory():
 def openInventory():
     with open(inventoryFileName, "rb") as file:
         inventory = pickle.load(file)
-    print(inventory.keys())
-    for key in inventory.keys():
-        print(key)
-        print(inventory[key])
+    for index in inventory:
+        for key in index.keys():
+            print(key)
+            print(inventory[key])
     print("Loading player inventory data")
     print('inventory contents:', inventory)  # prints the saved data
 
