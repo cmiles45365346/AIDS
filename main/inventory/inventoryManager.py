@@ -15,11 +15,14 @@ def checkIfPlayerInventoryExistsAndCreateItIfItDoesNot():
 
 def getItem():
     print('gold acquired')
-    inventory.append({"gold": 999})
+    inventory.append({"gold": 999})  # will add gold later on
+    inventory.append({"item2": "armor"})  # will add other items later on
+    savePlayerInventory(inventory)
 
 
-def savePlayerInventory():
-    pass
+def savePlayerInventory(inventory):
+    with open(inventoryFileName, "wb") as file:
+        pickle.dump(inventory, file)
 
 
 def openInventory():
