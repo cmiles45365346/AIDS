@@ -6,7 +6,6 @@ import keyboard
 
 def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery):
     if keyboard.is_pressed("esc"):
-        inventory.savePlayerInventory()
         exit("game shut down")
     # Controls in game
     if keyboard.is_pressed("s") and not gameMap[pindex + 1] in pcollide[0:len(pcollide)]:
