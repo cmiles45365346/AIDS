@@ -15,8 +15,8 @@ if __name__ == '__main__':
     playery = 0  # the players y coordinate
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
     pcollide = ["∧", "a", "E"]  # The player cannot move onto these characters
-    inventory.checkIfPlayerInventoryExistsAndCreateItIfItDoesNot()
-    inventory.savePlayerInventory()
+    inventoryData = inventory.checkIfPlayerInventoryExistsAndCreateItIfItDoesNot()
+    inventory.savePlayerInventory(inventoryData)
     for i in range(500):  # Generates 500 random enemies around the player
         combat.genEnemies(playerx, playery)  # Actually random because seed not set yet
 
