@@ -1,6 +1,5 @@
 import random
-
-import inventory.inventoryManager
+import inventory.inventoryManager as inventory
 
 
 def checkEnemyNearby(gameMap, pindex, screenDimensions):  # Checks if an enemy is vertical or horizontal to the player.
@@ -14,7 +13,7 @@ def checkEnemyNearby(gameMap, pindex, screenDimensions):  # Checks if an enemy i
             gameMap[pindex - 1] in penemy[0:len(penemy)] or \
             gameMap[pindex - screenDimensions] in penemy[0:len(penemy)] or \
             gameMap[pindex + screenDimensions] in penemy[0:len(penemy)]:
-        inventory.inventoryManager.getItem()
+        inventory.getItem()
         return True
     return False
 
