@@ -41,14 +41,16 @@ def renderOverlay(gameMap, screenDimensions, playerx, playery):
 
     for x in range(screenDimensions):
         for y in range(screenDimensions):
-
+            pass
     return gameMap
 
+"""
     for enemy in penemies:
         if 0 <= enemy[0] - playerx < 32:
             if 0 <= enemy[1] - playery < 32:
                 gameMap[(enemy[0] - playerx) - (playery - enemy[1]) * screenDimensions] = penemy[0]
     return gameMap
+"""
 
 if __name__ == '__main__':
 

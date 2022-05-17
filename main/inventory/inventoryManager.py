@@ -38,4 +38,3 @@ if __name__ == '__main__':
     exit(0)
 else:
     inventoryFileName = "playerInventory.bin"
-    inventory = []
