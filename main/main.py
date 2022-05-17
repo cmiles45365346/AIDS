@@ -9,7 +9,7 @@ if __name__ == '__main__':
     print("Finished imports")
     print("starting infinite world of AIDSrpg!")
 
-    fpsLimit = 30  # Limit of how many frames are rendered per second
+    fpsLimit = 10  # Limit of how many frames are rendered per second
     screenDimensions = 32  # cells rendered in X and Y directions
     playerx = 0  # the players x coordinate
     playery = 0  # the players y coordinate
