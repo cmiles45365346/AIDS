@@ -29,6 +29,7 @@ if __name__ == '__main__':
 
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)
+        image = screen.resizeScreen(image)
         screen.displayScreen(image)
 
         playerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)

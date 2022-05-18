@@ -19,6 +19,8 @@ def renderScreen(image, gameMap, screenDimensions):  # Renders onto the blank sc
             image[0 + x * 16:16 + x * 16, 0 + y * 16:16 + y * 16] = textures[texturesID+1][0:16, 0:16]
     return image
 
+def resizeScreen(image):
+    return cv2.resize(image, (1024, 1024))
 
 def displayScreen(image):
     cv2.imshow("", image)
