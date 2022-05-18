@@ -24,6 +24,8 @@ e - open inventory
 
 t - trade with npc
 
+f - engage combat
+
 ---
 
 World
