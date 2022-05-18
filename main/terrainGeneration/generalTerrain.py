@@ -19,8 +19,15 @@ def generateCells(screenx, screeny, screenDimensions):
 
             if x + screenx > 5000 or x + screenx < -5000 or y + screeny < -5000 or y + screeny > 5000:  # World border, 5000 is world borders size in a direction
                 gameMap.append("∧")
-            elif randnum < 4940:  # generates empty space
-                gameMap.append(" ")
+            elif randnum < 1235:  # generates upwards grass tile
+                gameMap.append("8")
+            elif randnum < 2470:  # generates right grass tiles
+                gameMap.append("6")
+            elif randnum < 3705:  # generates down grass tile
+                gameMap.append("2")
+            elif randnum < 4940:  # generates left grass tile
+                gameMap.append("4")
+
             elif randnum < 4982:  # generates mountains
                 gameMap.append("∧")
             elif randnum < 5001:  # generates traders

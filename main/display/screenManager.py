@@ -32,7 +32,10 @@ if __name__ == '__main__':
 else:
     # Warning game cannot render objects outside of range and will crash in such a scenario
     textures = [  # assign symbol to image
-        " ", cv2.imread("assets/grass.png"),
+        "8", cv2.imread("assets/grassUp.png"),
+        "6", cv2.imread("assets/grassRight.png"),
+        "2", cv2.imread("assets/grassDown.png"),
+        "4", cv2.imread("assets/grassLeft.png"),
         "∧", cv2.imread("assets/mountain.png"),  # ∧ is mountain symbol not ^ comparison ∧^ we will change this later.
         "🏠", cv2.imread("assets/trader.png"),
         "A", cv2.imread("assets/player.png"),
