@@ -60,5 +60,5 @@ def renderOverlay(gameMap, screenDimensions, playerx, playery):
 """
 
 if __name__ == '__main__':
-
+    terrain = []
     exit(0)
