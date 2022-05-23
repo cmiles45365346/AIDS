@@ -12,15 +12,17 @@ def renderScreen(image, gameMap, screenDimensions):  # Renders onto the blank sc
         for x in range(screenDimensions):
             texturesID = 0
             try:
-                while textures[texturesID] != gameMap[x+(y*screenDimensions)]:
+                while textures[texturesID] != gameMap[x + (y * screenDimensions)]:
                     texturesID += 2
             except Exception as e:
                 exit("Cannot render object onto the screen in screenManager unknown symbol")
-            image[0 + x * 16:16 + x * 16, 0 + y * 16:16 + y * 16] = textures[texturesID+1][0:16, 0:16]
+            image[0 + x * 16:16 + x * 16, 0 + y * 16:16 + y * 16] = textures[texturesID + 1][0:16, 0:16]
     return image
+
 
 def resizeScreen(image):
     return cv2.resize(image, (768, 768))
+
 
 def displayScreen(image):
     cv2.imshow("", image)
