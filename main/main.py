@@ -21,8 +21,10 @@ if __name__ == '__main__':
         image = screen.createBlank(512, 512)
         image = screen.renderScreen(image, gameMap, screenDimensions)
         screen.displayScreen(image)
-        playerx, playery = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery)
-        print(time.time() - currentTime)
+        player_x, player_y = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, player_x, player_y)
+        send_data(server_ip, server_port, server_public_key, ["set_player_pos", player_x, player_y, public_key])
+        # Upload playerx and playery to server
+        # print(time.time() - currentTime)
         # time.sleep(0.05) # forcefully sets max fps to 20 fps with no consideration of how much time passed
         # we decided combat will be turned based nad the game will run at 30 fps.
 else:

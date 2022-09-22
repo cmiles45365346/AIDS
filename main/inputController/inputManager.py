@@ -1,5 +1,7 @@
 import combat.combatManager as combat
 import trade.tradeManager as trade
+import inventory.inventoryManager as inventory
+import combat.lootDrops as loot
 import keyboard
 
 
@@ -18,12 +20,16 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
     if keyboard.is_pressed("t"):
         if trade.checkTradeAvailable(gameMap, pindex, screenDimensions):
             print("Trade can be done")
+            trade.sellItem()
         else:
             print("Trade cannot be done")
         if combat.checkEnemyNearby(gameMap, pindex, screenDimensions):
-            print("Enemy nearby")
-        else:
-            print("no enemy nearby")
+            # print("Enemy nearby")
+            loot.itemAquire()
+        # else:
+            # print("no enemy nearby")
+
     if keyboard.is_pressed("e"):  # Opens the inventory so the player can use it.
-        pass
+        inventory.PlayerInventory.openInventory()
+
     return playerx, playery
