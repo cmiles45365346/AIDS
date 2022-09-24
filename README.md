@@ -39,7 +39,6 @@ infinitely in a direction.
 Story
 ---
 ---
-you can follow the story if you want, or you could make your own with
-our map editor.
+Cry.
 
 ---
