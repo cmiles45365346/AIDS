@@ -19,10 +19,15 @@ def generateCells(screenx, screeny, screenDimensions):
 
             if x + screenx > 5000 or x + screenx < -5000 or y + screeny < -5000 or y + screeny > 5000:  # World border, 5000 is world borders size in a direction
                 gameMap.append("∧")
-            elif randnum < 4900:  # generates empty space
-                gameMap.append(" ")
-            elif randnum < 4940:  # generates enemies
-                gameMap.append("E")
+            elif randnum < 1235:  # generates upwards grass tile
+                gameMap.append("8")
+            elif randnum < 2470:  # generates right grass tiles
+                gameMap.append("6")
+            elif randnum < 3705:  # generates down grass tile
+                gameMap.append("2")
+            elif randnum < 4940:  # generates left grass tile
+                gameMap.append("4")
+
             elif randnum < 4982:  # generates mountains
                 gameMap.append("∧")
             elif randnum < 5001:  # generates traders
@@ -32,5 +37,28 @@ def generateCells(screenx, screeny, screenDimensions):
     return gameMap  # Returns generated map as output
 
 
+def renderOverlay(gameMap, screenDimensions, playerx, playery):
+    """
+    :param gameMap: the world
+    :param screenDimensions: the tiles across and down
+    :param playerx: the players x coordinate
+    :param playery: the players y coordinate
+    :return: returns the :param gameMap: with visible enemies overlapped to be handled by the rendering module.
+    """
+
+    for x in range(screenDimensions):
+        for y in range(screenDimensions):
+            pass
+    return gameMap
+
+"""
+    for enemy in penemies:
+        if 0 <= enemy[0] - playerx < 32:
+            if 0 <= enemy[1] - playery < 32:
+                gameMap[(enemy[0] - playerx) - (playery - enemy[1]) * screenDimensions] = penemy[0]
+    return gameMap
+"""
+
 if __name__ == '__main__':
+    terrain = []
     exit(0)
