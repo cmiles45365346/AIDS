@@ -87,5 +87,5 @@ if __name__ == '__main__':
 else:  # Variables freely accessible to all methods to edit importing combatManager.
     # We could do something cool here where friendlies can become hostile and hostiles can become friendlies.
     penemy = ['E']
-    pplayer = ['P']
+    pplayer = ['A']
     penemies = [[15, 15, 0, 4, 0], [15, 17, 0, 4, 0]]  # type x, y, level, xp dropped in death, frames lived

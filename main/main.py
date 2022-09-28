@@ -13,9 +13,9 @@ import json
 import os
 
 
-def handle_request(request):
+def handle_request(request, server):
     if request[0] == "set_player_pos":
-        players = request[1]
+        server.players = request[1]
 
 
 def send_data(ip, port, receivers_public_key, message):
@@ -38,6 +38,7 @@ class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):  #
     public_key = b''
     private_key = b''
     data_stack = []
+    players = []
 
 
 def generate_keys():
@@ -80,7 +81,7 @@ if __name__ == '__main__':
     # Server stuff
     # server_ip = '121.98.62.177'
     # server_port = 28015
-    server_ip = '10.0.2.15'
+    server_ip = '121.98.62.177'
     server_port = 28015
     my_ip = 'profile-replication.at.playit.gg'
     my_port = 33653
@@ -95,7 +96,6 @@ if __name__ == '__main__':
     player_y = 0
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
     pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
-    players = []
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)
     server.private_key, server.public_key = generate_keys()
     with server:
@@ -112,7 +112,7 @@ if __name__ == '__main__':
             gameMap = terrain.generateCells(player_y, player_x, screenDimensions)
             gameMap[pindex] = "A"
             gameMap = combat.render_enemy(gameMap, screenDimensions, player_x, player_y)
-            gameMap = combat.render_players(gameMap, screenDimensions, player_x, player_y, players)
+            gameMap = combat.render_players(gameMap, screenDimensions, player_x, player_y, server.players)
             image = screen.createBlank(512, 1024)
             image = screen.renderScreen(image, gameMap, screenDimensions)
             image = screen.resizeScreen(image)
@@ -128,10 +128,10 @@ if __name__ == '__main__':
             while len(server.data_stack) > 0:
                 start_time = time.time()
                 print('Processing request: {}'.format(server.data_stack[0]))
-                handle_request(server.data_stack[0])
+                handle_request(server.data_stack[0], server)
                 print('Processed request: {} in {} seconds'.format(server.data_stack[0], time.time() - start_time))
                 server.data_stack.pop(0)
-                print(players)
+                print(server.players)
         server.shutdown()
 else:
     exit("You cannot use main as an import as it is not a library")
