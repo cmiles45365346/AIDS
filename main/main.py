@@ -114,7 +114,7 @@ if __name__ == '__main__':
             gameMap = combat.render_enemy(gameMap, screenDimensions, player_x, player_y)
             gameMap = combat.render_players(gameMap, screenDimensions, player_x, player_y, players)
             image = screen.createBlank(512, 1024)
-            image = screen.renderScreen(image, gameMap, screenDimensions, players)
+            image = screen.renderScreen(image, gameMap, screenDimensions)
             image = screen.resizeScreen(image)
             screen.displayScreen(image)
             player_x, player_y = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, player_x,
