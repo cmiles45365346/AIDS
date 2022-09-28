@@ -2,6 +2,7 @@ from ecies.utils import generate_eth_key
 from ecies import decrypt
 import AIDSServer
 import socketserver
+import socket
 import threading
 import json
 import os
@@ -12,6 +13,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         try:
             data = json.loads(decrypt(server.private_key, self.request[0]))
             server.data_stack.append(data)
+            print(server.data_stack)
         except Exception as e:
             print("Failure occurred: {}".format(e))
 
@@ -56,7 +58,10 @@ def generate_keys():
 
 
 if __name__ == "__main__":
-    HOST, PORT = "127.0.0.1", 5000
+    server = socket.gethostbyname(socket.gethostname())  # 10.128.X.XXX which is the Internal IP
+    print(server)
+    # HOST, PORT = "121.98.62.177", 28015
+    HOST, PORT = "10.34.54.13", 28015
 
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)
     server.private_key, server.public_key = generate_keys()

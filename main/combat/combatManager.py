@@ -1,5 +1,6 @@
 import random
 import inventory.inventoryManager as inventory
+import combat.lootDrops as loot
 
 
 def checkEnemyNearby(gameMap, pindex, screenDimensions):  # Checks if an enemy is vertical or horizontal to the player.
@@ -13,7 +14,6 @@ def checkEnemyNearby(gameMap, pindex, screenDimensions):  # Checks if an enemy i
             gameMap[pindex - 1] in penemy[0:len(penemy)] or \
             gameMap[pindex - screenDimensions] in penemy[0:len(penemy)] or \
             gameMap[pindex + screenDimensions] in penemy[0:len(penemy)]:
-        inventory.getItem()
         return True
     return False
 
@@ -29,13 +29,15 @@ def badCombat(gameMap, pindex, screenDimensions):  # temporary combat(?)
     pass
 
 
-def genEnemies(playerx, playery):  # Generates a single enemy around the player when called ignoring all terrain.
+def gen_enemies(player_x, player_y):  # Generates a single enemy around the player when called ignoring all terrain.
     """
-    :param playerx: the players x coordinate
-    :param playery: the players y coordinate
+    Generates 2 enemies
+    :param player_x: the players x coordinate
+    :param player_y: the players y coordinate
     :return: nothing yet just appends to a public array
     """
-    penemies.append([playerx + random.randint(-32, 32), playery + random.randint(-32, 32), 0, 4, 0])
+    penemies.append([player_x + random.randint(-32, 32), player_y + random.randint(-32, 32), 0, 4, 0])
+    return penemies
 
 
 def moveStraightTowardsPlayer():  # Moves enemy towards player, will add later
@@ -46,27 +48,44 @@ def attackPlayer():  # Enemy attacks the player, will add later
     pass
 
 
-def renderEnemy(gameMap, screenDimensions, playerx, playery):  # Note does not actually render enemies
+def render_enemy(game_map, screen_dimensions, player_x, player_y):  # Note does not actually render enemies
     """
-    :param gameMap: the world
-    :param screenDimensions: the tiles across and down
-    :param playerx: the players x coordinate
-    :param playery: the players y coordinate
+    Overlay enemies on the game_map
+    :param game_map: The worlds map
+    :param screen_dimensions: Array of the tiles across and down
+    :param player_x: the players x coordinate
+    :param player_y: the players y coordinate
     :return: returns the :param gameMap: with visible enemies overlapped to be handled by the rendering module.
     """
 
     for enemy in penemies:
-        if 0 <= enemy[0] - playerx < 32:
-            if 0 <= enemy[1] - playery < 32:
-                gameMap[(enemy[0] - playerx) - (playery - enemy[1]) * screenDimensions] = penemy[0]
-    return gameMap
+        if 0 <= enemy[0] - player_x < 32:
+            if 0 <= enemy[1] - player_y < 32:
+                game_map[(enemy[0] - player_x) - (player_y - enemy[1]) * screen_dimensions] = penemy[0]
+    return game_map
+
+
+def render_players(game_map, screen_dimensions, player_x, player_y):
+    """
+    Overlay enemies on the game_map
+    :param game_map: The worlds map
+    :param screen_dimensions: Array of the tiles across and down
+    :param player_x: the players x coordinate
+    :param player_y: the players y coordinate
+    :return: returns the :param gameMap: with visible players overlapped to be handled by the rendering module.
+    """
+    for player in players:
+        if 0 <= player[0] - player_x < 32:
+            if 0 <= player[1] - player_y < 32:
+                game_map[(player[0] - player_x) - (player_y - player[1]) * screen_dimensions] = pplayer[0]
+    return game_map
 
 
 if __name__ == '__main__':
     exit(0)
 else:  # Variables freely accessible to all methods to edit importing combatManager.
-    """
-    We could do something cool here where friendlies can become hostile and hostiles can become friendlies.
-    """
+    # We could do something cool here where friendlies can become hostile and hostiles can become friendlies.
     penemy = ['E']
-    penemies = [[15, 15, 0, 4, 0], [15, 17, 0, 4, 0]]  # x, y, level, xp dropped in death, frames lived
+    pplayer = ['P']
+    penemies = [[15, 15, 0, 4, 0], [15, 17, 0, 4, 0]]  # type x, y, level, xp dropped in death, frames lived
+    players = []

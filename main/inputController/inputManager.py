@@ -4,7 +4,6 @@ import inventory.inventoryManager as inventory
 import combat.lootDrops as loot
 import keyboard
 
-
 def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, playery):
     if keyboard.is_pressed("esc"):
         exit("game shut down")
@@ -19,17 +18,17 @@ def inputController(gameMap, screenDimensions, pcollide, pindex, playerx, player
         playery += 1
     if keyboard.is_pressed("t"):
         if trade.checkTradeAvailable(gameMap, pindex, screenDimensions):
-            print("Trade can be done")
+            # print("Trade can be done")
             trade.sellItem()
-        else:
-            print("Trade cannot be done")
+
         if combat.checkEnemyNearby(gameMap, pindex, screenDimensions):
             # print("Enemy nearby")
-            loot.itemAquire()
+            loot.item_acquired()
         # else:
             # print("no enemy nearby")
-
     if keyboard.is_pressed("e"):  # Opens the inventory so the player can use it.
-        inventory.PlayerInventory.openInventory()
+        # print("inventory should get opened")  # test print
+        inventory.PlayerInventory.open_inventory()
+
 
     return playerx, playery

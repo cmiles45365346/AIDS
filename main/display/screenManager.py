@@ -21,7 +21,7 @@ def renderScreen(image, gameMap, screenDimensions):  # Renders onto the blank sc
 
 
 def resizeScreen(image):
-    return cv2.resize(image, (768, 768))
+    return cv2.resize(image, (1536, 768))
 
 
 def displayScreen(image):

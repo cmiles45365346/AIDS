@@ -2,9 +2,11 @@ class PlayerInventory:
     def __init__(self):
         self.inventory = [0]
 
-    def openInventory(self):
-        print(self.inventory)
+    def open_inventory(self):
+        print(PlayerInventory.inventory)
 
 
 if __name__ == '__main__':
     exit(0)
+else:
+    PlayerInventory = PlayerInventory()

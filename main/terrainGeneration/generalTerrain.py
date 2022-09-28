@@ -37,28 +37,7 @@ def generateCells(screenx, screeny, screenDimensions):
     return gameMap  # Returns generated map as output
 
 
-def renderOverlay(gameMap, screenDimensions, playerx, playery):
-    """
-    :param gameMap: the world
-    :param screenDimensions: the tiles across and down
-    :param playerx: the players x coordinate
-    :param playery: the players y coordinate
-    :return: returns the :param gameMap: with visible enemies overlapped to be handled by the rendering module.
-    """
-
-    for x in range(screenDimensions):
-        for y in range(screenDimensions):
-            pass
-    return gameMap
-
-"""
-    for enemy in penemies:
-        if 0 <= enemy[0] - playerx < 32:
-            if 0 <= enemy[1] - playery < 32:
-                gameMap[(enemy[0] - playerx) - (playery - enemy[1]) * screenDimensions] = penemy[0]
-    return gameMap
-"""
-
 if __name__ == '__main__':
     terrain = []
+    penemies = [[0, 0]]
     exit(0)

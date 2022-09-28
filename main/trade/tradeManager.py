@@ -18,6 +18,8 @@ def sellItem():
         inventory.PlayerInventory.inventory.pop(selling)
         inventory.PlayerInventory.inventory[0] += 5
         print("sold, +5 gold")
+    else:
+        print("No {} in inventory.".format(loot.itemDropList[0]))
     pass
 
 

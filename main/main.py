@@ -1,6 +1,7 @@
 import terrainGeneration.generalTerrain as terrain
 import inputController.inputManager as playerInput
 import inventory.inventoryManager as inventory
+import combat.combatManager as combat
 from ecies.utils import generate_eth_key
 import display.screenManager as screen
 from ecies import encrypt
@@ -54,8 +55,10 @@ if __name__ == '__main__':
     print("starting infinite world of AIDSrpg!")
 
     # Server stuff
-    server_ip = '127.0.0.1'
-    server_port = 5000
+    server_ip = '121.98.62.177'
+    server_port = 28015
+    my_ip = '127.0.0.1'
+    my_port = 5000
     with open("server_public.pem", "rt") as f:
         server_public_key = f.read()
     private_key, public_key = generate_keys()
@@ -64,20 +67,26 @@ if __name__ == '__main__':
     player_x = 0
     player_y = 0
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
+    #pindex = 116
     pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
 
     while True:
         currentTime = time.time()
         gameMap = terrain.generateCells(player_y, player_x, screenDimensions)
         gameMap[pindex] = "A"
-        image = screen.createBlank(512, 512)
+        gameMap = combat.render_enemy(gameMap, screenDimensions, player_x, player_y)
+        image = screen.createBlank(512, 1024)
         image = screen.renderScreen(image, gameMap, screenDimensions)
+
+        image = screen.resizeScreen(image)
         screen.displayScreen(image)
-        player_x, player_y = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, player_x, player_y)
-        send_data(server_ip, server_port, server_public_key, ["set_player_pos", player_x, player_y, public_key])
+        player_x, player_y = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, player_x,
+                                                         player_y)
+        send_data(server_ip, server_port, server_public_key, ["set_player_pos", player_x, player_y, public_key, my_ip,
+                                                              my_port])
         # Upload player_x and player_y to server
         # print(time.time() - currentTime)
-        # time.sleep(0.05) # forcefully sets max fps to 20 fps with no consideration of how much time passed
+        time.sleep(0.05)  # forcefully sets max fps to 20 fps with no consideration of how much time passed
         # we decided combat will be turned based nad the game will run at 30 fps.
 else:
     exit("You cannot use main as an import as it is not a library")
