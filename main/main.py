@@ -81,11 +81,11 @@ if __name__ == '__main__':
     # Server stuff
     # server_ip = '121.98.62.177'
     # server_port = 28015
-    server_ip = '121.98.62.177'
+    server_ip = '10.34.54.13'
     server_port = 28015
-    my_ip = 'profile-replication.at.playit.gg'
-    my_port = 33653
-    HOST = 'localhost'
+    my_ip = '10.34.54.13'
+    my_port = 5000
+    HOST = '10.34.54.13'
     PORT = 5000
     with open("server_public.pem", "rt") as f:
         server_public_key = f.read()
@@ -123,7 +123,7 @@ if __name__ == '__main__':
                                                                   my_port])
             # Upload player_x and player_y to server
             # print(time.time() - currentTime)
-            time.sleep(0.05)  # forcefully sets max fps to 20 fps with no consideration of how much time passed
+            # time.sleep(0.05)  # forcefully sets max fps to 20 fps with no consideration of how much time passed
             # we decided combat will be turned based nad the game will run at 30 fps.
             while len(server.data_stack) > 0:
                 start_time = time.time()

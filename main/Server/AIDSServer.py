@@ -32,8 +32,8 @@ def handle_request(request, server_data):
                 if server_data.registered.__contains__(request[3]):
                     for player in server_data.players:
                         if player[0] == request[3]:
-                            player[1] = int(request[1])
-                            player[2] = int(request[2])
+                            player[1] = int(request[1]) + 16  # +16 and +15 to fix a silly map de-sync bug
+                            player[2] = int(request[2]) + 15
                             send_out = []
                             for player2 in server_data.players:
                                 if player2[0] != request[3]:
