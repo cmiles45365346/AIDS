@@ -57,8 +57,8 @@ if __name__ == '__main__':
     # Server stuff
     server_ip = '121.98.62.177'
     server_port = 28015
-    my_ip = '127.0.0.1'
-    my_port = 5000
+    my_ip = 'profile-replication.at.playit.gg'
+    my_port = 33653
     with open("server_public.pem", "rt") as f:
         server_public_key = f.read()
     private_key, public_key = generate_keys()
@@ -67,7 +67,6 @@ if __name__ == '__main__':
     player_x = 0
     player_y = 0
     pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
-    #pindex = 116
     pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
 
     while True:

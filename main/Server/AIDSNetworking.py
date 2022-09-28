@@ -58,10 +58,8 @@ def generate_keys():
 
 
 if __name__ == "__main__":
-    server = socket.gethostbyname(socket.gethostname())  # 10.128.X.XXX which is the Internal IP
-    print(server)
-    # HOST, PORT = "121.98.62.177", 28015
-    HOST, PORT = "10.34.54.13", 28015
+    print(socket.gethostbyname(socket.gethostname()))
+    HOST, PORT = socket.gethostbyname(socket.gethostname()), 28015
 
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)
     server.private_key, server.public_key = generate_keys()
