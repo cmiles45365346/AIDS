@@ -55,7 +55,9 @@ if __name__ == '__main__':
     print("starting infinite world of AIDSrpg!")
 
     # Server stuff
-    server_ip = '121.98.62.177'
+    # server_ip = '121.98.62.177'
+    # server_port = 28015
+    server_ip = '10.0.2.15'
     server_port = 28015
     my_ip = 'profile-replication.at.playit.gg'
     my_port = 33653

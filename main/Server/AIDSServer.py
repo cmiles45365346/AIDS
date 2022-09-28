@@ -5,9 +5,8 @@ import time
 
 
 class ServerData:
-    def __init__(self):
-        self.players = []
-        self.registered = []
+    players = []
+    registered = []
 
 
 def send_data(ip, port, message):
@@ -31,17 +30,18 @@ def handle_request(request, server_data):
     try:
         if request[0] == "set_player_pos":
             if verify_key(request[3]):
-                if server_data.__contains__(request[3]):
+                print(server_data.registered)
+                if server_data.registered.__contains__(request[3]):
                     for player in server_data.players:
                         if player[0] == request[3]:
                             player[1] = int(request[1])
                             player[2] = int(request[2])
                             send_out = []
                             for player2 in server_data.players:
-                                if player2[0] != request[4]:
+                                if player2[0] != request[3]:
                                     send_out.append([player2[1], player2[2]])
                             send_data(request[4], request[5], send_out)
-                            print(server_data.players, "Gooo")
+                            print(send_out, "Gooo")
                 else:
                     server_data.registered.append(request[3])
                     server_data.players.append([request[3], int(request[1]), int(request[2])])
