@@ -9,18 +9,16 @@ class ServerData:
     registered = []
 
 
-def send_data(ip, port, message):
+def send_data(ip, port, public_key, message):
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
         address = (ip, port)
-        with open("public.pem", "rt") as f:
-            public_key = f.read()
         sock.sendto(encrypt(public_key, json.dumps(message).encode()), address)
 
 
 def verify_key(public_key):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-            sock.sendto(encrypt(public_key, json.dumps(public_key).encode()), ('localhost', 5000))
+            sock.sendto(encrypt(public_key, json.dumps(public_key).encode()), ('localhost', 8642))
         return True
     except:
         return False
@@ -40,8 +38,8 @@ def handle_request(request, server_data):
                             for player2 in server_data.players:
                                 if player2[0] != request[3]:
                                     send_out.append([player2[1], player2[2]])
-                            send_data(request[4], request[5], send_out)
-                            print(send_out, "Gooo")
+                            send_data(request[4], request[5], request[3], ["set_player_pos", send_out])
+                            print(["set_player_pos", send_out])
                 else:
                     server_data.registered.append(request[3])
                     server_data.players.append([request[3], int(request[1]), int(request[2])])

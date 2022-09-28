@@ -65,13 +65,14 @@ def render_enemy(game_map, screen_dimensions, player_x, player_y):  # Note does 
     return game_map
 
 
-def render_players(game_map, screen_dimensions, player_x, player_y):
+def render_players(game_map, screen_dimensions, player_x, player_y, players):
     """
     Overlay enemies on the game_map
     :param game_map: The worlds map
     :param screen_dimensions: Array of the tiles across and down
     :param player_x: the players x coordinate
     :param player_y: the players y coordinate
+    :param players: Coordinates of players in the game
     :return: returns the :param gameMap: with visible players overlapped to be handled by the rendering module.
     """
     for player in players:
@@ -88,4 +89,3 @@ else:  # Variables freely accessible to all methods to edit importing combatMana
     penemy = ['E']
     pplayer = ['P']
     penemies = [[15, 15, 0, 4, 0], [15, 17, 0, 4, 0]]  # type x, y, level, xp dropped in death, frames lived
-    players = []
