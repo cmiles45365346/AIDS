@@ -1,27 +1,32 @@
 from ecies.utils import generate_eth_key
-from ecies import decrypt
+from ecies import decrypt, encrypt
 import AIDSServer
 import socketserver
 import socket
 import threading
+import time
 import json
 import os
 
 
-class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
+class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
         try:
-            data = json.loads(decrypt(server.private_key, self.request[0]))
-            server.data_stack.append(data)
-            print(server.data_stack)
+            while True:
+                print(self.request)
+                data = self.request.recv(4096)
+                data = json.loads(decrypt(server.private_key, data))
+                AIDSServer.handle_request(self.request, data)
+                # server.data_stack.append([self.request, data])
+                # print(server.data_stack)
+                # AIDSServer.handle_request()
         except Exception as e:
             print("Failure occurred: {}".format(e))
 
 
-class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):  # RW-perms from in and out of thread
+class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):  # RW-perms from in and out of thread
     public_key = b''
     private_key = b''
-    data_stack = []
 
 
 def generate_keys():
@@ -56,26 +61,28 @@ def generate_keys():
     # print(f"{private_key}\n{public_key}")
     return private_key, public_key
 
+#def client(ip, port, public_key, message):
+#    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+#       sock.connect((ip, port))
+#       sock.send(encrypt(public_key, json.dumps(message).encode()))
 
 if __name__ == "__main__":
     print(socket.gethostbyname(socket.gethostname()))
     HOST, PORT = socket.gethostbyname(socket.gethostname()), 28015
 
-    server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)
+    server = ThreadedTCPServer((HOST, PORT), ThreadedTCPRequestHandler)
     server.private_key, server.public_key = generate_keys()
     with server:
         ip, port = server.server_address
 
-        # Start a thread with the server -- that thread will then start one more thread for each request
         server_thread = threading.Thread(target=server.serve_forever)
-        # Exit the server thread when the main thread terminates
         server_thread.daemon = True
         server_thread.start()
 
         print("Server loop running in thread:", server_thread.name)
-
-        AIDSServer.start(server.data_stack)
-
-        print("Data stack at shutdown: {}".format(server.data_stack))
+       
+        time.sleep(3600) # Run the server for 1 hour then shut the server down when there are no requests left
+        
+        print("Server shutting down")
 
         server.shutdown()

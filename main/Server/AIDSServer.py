@@ -9,10 +9,8 @@ class ServerData:
     registered = []
 
 
-def send_data(ip, port, public_key, message):
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-        address = (ip, port)
-        sock.sendto(encrypt(public_key, json.dumps(message).encode()), address)
+def send_data(sock, public_key, message):
+    sock.sendall(encrypt(public_key, json.dumps(message).encode()))
 
 
 def verify_key(public_key):
@@ -24,36 +22,30 @@ def verify_key(public_key):
         return False
 
 
-def handle_request(request, server_data):
+def handle_request(sock, data):
     try:
-        if request[0] == "set_player_pos":
-            if verify_key(request[3]):
-                print(server_data.registered)
-                if server_data.registered.__contains__(request[3]):
-                    for player in server_data.players:
-                        if player[0] == request[3]:
-                            player[1] = int(request[1])
-                            player[2] = int(request[2])
+        if data[0] == "set_player_pos":
+            if verify_key(data[3]):
+                print(server_info.registered, 'a')
+                if server_info.registered.__contains__(data[3]):
+                    for player in server_info.players:
+                        if player[0] == data[3]:
+                            player[1] = int(data[1]) + 16 # Player x
+                            player[2] = int(data[2]) + 15 # Player y
                             send_out = []
-                            for player2 in server_data.players:
-                                if player2[0] != request[3]:
+                            for player2 in server_info.players:
+                                if player2[0] != data[3]:
                                     send_out.append([player2[1], player2[2]])
-                            send_data(request[4], request[5], request[3], ["set_player_pos", send_out])
+                            send_out.append([2+16, 2+15])
+                            send_data(sock, data[3], ["set_player_pos", send_out])
                             print(["set_player_pos", send_out])
                 else:
-                    server_data.registered.append(request[3])
-                    server_data.players.append([request[3], int(request[1]), int(request[2])])
+                    server_info.registered.append(data[3]) # Player public key
+                    server_info.players.append([data[3], int(data[1]), int(data[2])])
     except Exception as error:
         print("An error occurred in the server: {}".format(error))
 
-
-def start(stack):
+if __name__ == '__main__':
+    exit("Please run AIDSNetworking")
+else:
     server_info = ServerData
-    while True:
-        while len(stack) > 0:
-            start_time = time.time()
-            print('Processing request: {}'.format(stack[0]))
-            handle_request(stack[0], server_info)
-            print('Processed request: {} in {} seconds'.format(stack[0], time.time() - start_time))
-            stack.pop(0)
-        time.sleep(0.05)
