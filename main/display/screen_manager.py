@@ -1,18 +1,17 @@
 import numpy as np
 import cv2
-import os
 
 
-def createBlank(x, y):  # Returns a black image of size x, y.
+def create_blank_image(x, y):  # Returns a black image of size x, y.
     return np.zeros((x, y, 3), np.uint8)
 
 
-def renderScreen(image, gameMap, screenDimensions):  # Renders onto the blank screen.
-    for y in range(screenDimensions):
-        for x in range(screenDimensions):
+def render_screen(image, terrain, screen_dimensions):  # Renders onto the blank screen.
+    for y in range(screen_dimensions):
+        for x in range(screen_dimensions):
             texturesID = 0
             try:
-                while textures[texturesID] != gameMap[x + (y * screenDimensions)]:
+                while textures[texturesID] != terrain[x + (y * screen_dimensions)]:
                     texturesID += 2
             except Exception as e:
                 exit("Cannot render object onto the screen in screenManager unknown symbol")
@@ -20,18 +19,16 @@ def renderScreen(image, gameMap, screenDimensions):  # Renders onto the blank sc
     return image
 
 
-def resizeScreen(image):
+def resize_screen(image):
     return cv2.resize(image, (1536, 768))
 
 
-def displayScreen(image):
+def display_screen(image):
     cv2.imshow("", image)
     cv2.waitKey(1)
 
 
-if __name__ == '__main__':
-    exit(0)
-else:
+if __name__ != '__main__':
     # Warning game cannot render objects outside of range and will crash in such a scenario
     textures = [  # assign symbol to image
         "8", cv2.imread("assets/grassUp.png"),
@@ -44,4 +41,3 @@ else:
         "a", cv2.imread("assets/trader.png"),
         "E", cv2.imread("assets/enemy.png")
     ]  # Symbol, texture,
-    image = createBlank(512, 512)

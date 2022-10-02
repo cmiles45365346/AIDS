@@ -1,11 +1,9 @@
-import terrainGeneration.generalTerrain as terrain
-import inputController.inputManager as playerInput
-import inventory.inventoryManager as inventory
+import terrain_generation.general_terrain as terrain_generator
+import input_controller.input_manager as playerInput
 from ecies.utils import generate_eth_key
-import display.screenManager as screen
-import combat.combatManager as combat
+import display.screen_manager as screen
+import combat.combat_manager as combat
 from ecies import encrypt, decrypt
-import socketserver
 import threading
 import socket
 import time
@@ -61,8 +59,8 @@ def generate_keys():
 def reciever():
     while True:
         data = server.sock.recv(4096)
-        data = json.loads(decrypt(private_key, data))
-        print("Recieved:", data)
+        data = json.loads(decrypt(server.private_key, data))
+        # print("Recieved:", data)
         handle_request(data)
 
 def sender():
@@ -77,19 +75,13 @@ if __name__ == '__main__':
     
     print("Finished imports")
     print("starting infinite world of AIDSrpg!")
-    #server_ip = '121.98.62.177'
+    
     server_ip = '10.0.2.15'
     server_port = 28015
     with open("server_public.pem", "rt") as f:
         server.server_public_key = f.read()
-    private_key, public_key = generate_keys()
-
-    screenDimensions = 32  # cells rendered in X and Y directions
-    player_x = 0
-    player_y = 0
-    pindex = (screenDimensions ** 2 // 2) - screenDimensions // 2
-    pcollide = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
-    private_key, public_key = generate_keys()
+    server.private_key, server.public_key = generate_keys()
+    
     while True:
         try:
             server.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -97,42 +89,37 @@ if __name__ == '__main__':
             break
         except Exception as e:
             print("Error occurred: {}".format(e))
-    # Start a thread with the server -- that thread will then start one more thread for each request
-    server_thread = threading.Thread(target=reciever)
-    # Exit the server thread when the main thread terminates
-    server_thread.daemon = True
-    server_thread.start()
+
+    screen_dimensions = 32  # cells rendered in X and Y directions
+    player_x = 0
+    player_y = 0
+    player_position = (screen_dimensions ** 2 // 2) - screen_dimensions // 2
+    player_collides_with = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
     
-    server_thread = threading.Thread(target=sender)
-    # Exit the server thread when the main thread terminates
-    server_thread.daemon = True
-    server_thread.start()
+    # Handle information coming in from the server
+    reciever_thread = threading.Thread(target=reciever)
+    reciever_thread.daemon = True
+    reciever_thread.start()
+    
+    # Handle information going to the server
+    sender_thread = threading.Thread(target=sender)
+    sender_thread.daemon = True
+    sender_thread.start()
+    
+    combat.enemies = combat.generate_enemy(player_x, player_y)
     while True:
-        currentTime = time.time()
-        gameMap = terrain.generateCells(player_y, player_x, screenDimensions)
-        gameMap[pindex] = "A"
-        gameMap = combat.render_enemy(gameMap, screenDimensions, player_x, player_y)
-        gameMap = combat.render_players(gameMap, screenDimensions, player_x, player_y, server.players)
-        image = screen.createBlank(512, 1024)
-        image = screen.renderScreen(image, gameMap, screenDimensions)
-        image = screen.resizeScreen(image)
-        screen.displayScreen(image)
-        player_x, player_y = playerInput.inputController(gameMap, screenDimensions, pcollide, pindex, player_x,
+        current_time = time.time()
+        terrain = terrain_generator.generate_cells(player_y, player_x, screen_dimensions)
+        terrain[player_position] = "A"
+        terrain = combat.render_enemies(terrain, screen_dimensions, player_x, player_y)
+        terrain = combat.render_players(terrain, screen_dimensions, player_x, player_y, server.players)
+        image = screen.create_blank_image(512, 1024)
+        image = screen.render_screen(image, terrain, screen_dimensions)
+        image = screen.resize_screen(image)
+        screen.display_screen(image)
+        player_x, player_y = playerInput.input_controller(terrain, screen_dimensions, player_collides_with,  player_position, player_x,
                                                          player_y)
-        server.send_stack.append(["set_player_pos", player_x, player_y, public_key])
+        server.send_stack.append(["set_player_pos", player_x, player_y, server.public_key])
         # Upload player_x and player_y to server
-        # print(time.time() - currentTime)
-        # time.sleep(0.05)  # forcefully sets max fps to 20 fps with no consideration of how much time passed
-        # we decided combat will be turned based nad the game will run at 30 fps.
-        #while len(server.data_stack) > 0:
-        #    start_time = time.time()
-        #    print('Processing request: {}'.format(server.data_stack[0]))
-        #    handle_request(server.data_stack[0], server)
-        #    print('Processed request: {} in {} seconds'.format(server.data_stack[0], time.time() - start_time))
-        #    server.data_stack.pop(0)
-        #    print(server.players)
-        #data = server.sock.recv(1024)
-        #print(data)
+        # print("Ran loop in: {:.3f} seconds".format(time.time() - current_time))
         time.sleep(0.05)
-else:
-    exit("You cannot use main as an import as it is not a library")
