@@ -1,9 +1,12 @@
 class player_inventory:
     def __init__(self):
-        self.inventory = [0]
+        self.inventory = ["gold", 10] # Chose array because yes
 
     def open_player_inventory(self):
-        print(player_inventory.inventory)
+        print(self.inventory)
+    
+    def get_player_gold(self):
+        print(self.inventory["gold"])
 
 
 if __name__ != '__main__':

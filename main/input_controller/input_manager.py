@@ -3,6 +3,7 @@ import trade.trade_manager as trade
 import inventory.inventory_manager as inventory
 import combat.loot_drops as loot
 import keyboard
+import main
 
 def input_controller(terrain, screen_dimensions, player_collides_with, player_position, player_x, player_y):
     if keyboard.is_pressed("esc"):
@@ -29,4 +30,7 @@ def input_controller(terrain, screen_dimensions, player_collides_with, player_po
     if keyboard.is_pressed("e"):  # Opens the inventory so the player can use it.
         # print("inventory should get opened")  # test print
         inventory.player_inventory.open_player_inventory()
+        inventory.player_inventory.get_player_gold()
+    if keyboard.is_pressed("l"):
+        main.server.send_stack.append(["cast_fireball", main.server.public_key])
     return player_x, player_y

@@ -119,7 +119,9 @@ if __name__ == '__main__':
         screen.display_screen(image)
         player_x, player_y = playerInput.input_controller(terrain, screen_dimensions, player_collides_with,  player_position, player_x,
                                                          player_y)
-        server.send_stack.append(["set_player_pos", player_x, player_y, server.public_key])
+        server.send_stack.append(["set_player_pos", server.public_key, player_x, player_y])
         # Upload player_x and player_y to server
         # print("Ran loop in: {:.3f} seconds".format(time.time() - current_time))
         time.sleep(0.05)
+else:
+    server = ServerData # Give server to external python files

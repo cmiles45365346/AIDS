@@ -1,6 +1,6 @@
 from ecies.utils import generate_eth_key
 from ecies import decrypt, encrypt
-import AIDSServer
+import AIDS_server
 import socketserver
 import socket
 import threading
@@ -13,13 +13,9 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
         try:
             while True:
-                print(self.request)
                 data = self.request.recv(4096)
                 data = json.loads(decrypt(server.private_key, data))
-                AIDSServer.handle_request(self.request, data)
-                # server.data_stack.append([self.request, data])
-                # print(server.data_stack)
-                # AIDSServer.handle_request()
+                AIDS_server.handle_request(self.request, data)
         except Exception as e:
             print("Failure occurred: {}".format(e))
 
