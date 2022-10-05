@@ -76,7 +76,7 @@ if __name__ == '__main__':
     print("Finished imports")
     print("starting infinite world of AIDSrpg!")
     
-    server_ip = '10.0.2.15'
+    server_ip = '121.98.62.177'
     server_port = 28015
     with open("server_public.pem", "rt") as f:
         server.server_public_key = f.read()
@@ -123,5 +123,6 @@ if __name__ == '__main__':
         # Upload player_x and player_y to server
         # print("Ran loop in: {:.3f} seconds".format(time.time() - current_time))
         time.sleep(0.05)
+        print(server.send_stack)
 else:
     server = ServerData # Give server to external python files

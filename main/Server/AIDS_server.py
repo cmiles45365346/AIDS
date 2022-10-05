@@ -34,7 +34,7 @@ def handle_request(sock, data):
                                 send_out = []
                                 for player2 in server_info.players:
                                     if player2[0] != data[1]:
-                                        send_out.append([player2[2], player2[3]])
+                                        send_out.append([player2[1], player2[2]])
                                 send_data(sock, data[1], ["set_player_pos", send_out])
                     else:
                         server_info.registered.append(data[1]) # Player public key
