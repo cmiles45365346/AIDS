@@ -73,8 +73,16 @@ if __name__ == "__main__":
         server_thread.start()
 
         print("Server loop running in thread:", server_thread.name)
-       
-        time.sleep(3600) # Run the server for 60 minutes
+
+        tick_rate_ms = (1000 / 10)
+
+        timer_start = time.time()
+        next_frame = timer_start + 0.1
+        while True:
+            next_frame += 0.1
+            # Main server loop
+            if next_frame - time.time() > 0:
+                time.sleep(next_frame - time.time()) # Pauses the server for time
         
         print("Server shutting down")
 
