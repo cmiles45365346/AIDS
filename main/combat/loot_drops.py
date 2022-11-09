@@ -2,6 +2,7 @@ import inventory.inventory_manager as inventory
 import secrets
 
 
+#review time: 1668128107.0732753
 def acquire_item():
     inventory.player_inventory.inventory[0] += 10  # you get 10 pennies for combat, subject to change, prob should be random but seed go brr
     dropped_item = choose_random_item(item_drops)
@@ -9,6 +10,7 @@ def acquire_item():
         inventory.player_inventory.inventory.append(dropped_item)
 
 
+#review time: 1668128107.0732753
 def choose_random_item(loot):
     if secrets.choice(range(0, 3)) == 0:  # 1/3 Chance to get an item
         dropped_item = secrets.choice(loot)

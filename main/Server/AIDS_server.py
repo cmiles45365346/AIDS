@@ -9,10 +9,12 @@ class ServerData:
     registered = []
 
 
+#review time: 1668128107.0732753
 def send_data(sock, public_key, message):
     sock.sendall(encrypt(public_key, json.dumps(message).encode()))
 
 
+#review time: 1668128107.0732753
 def verify_key(public_key):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
@@ -22,6 +24,7 @@ def verify_key(public_key):
         return False
 
 
+#review time: 1668128107.0732753
 def handle_request(sock, data):
     try:
         if verify_key(data[1]):

@@ -11,6 +11,7 @@ import json
 import os
 
 
+#review time: 1668128107.0732753
 def handle_request(request):
     if request[0] == "set_player_pos":
         server.players = request[1]
@@ -24,6 +25,7 @@ class ServerData:
     send_stack = []
     sock = b''
 
+#review time: 1668128107.0732753
 def generate_keys():
     print("---You are running a modified version of Decentranet---")
     print("Never share your private key doing so will compromise the security of your server")
@@ -56,6 +58,7 @@ def generate_keys():
     # print(f"{private_key}\n{public_key}")
     return priv_key, pub_key
 
+#review time: 1668128107.0732753
 def reciever():
     while True:
         data = server.sock.recv(4096)
@@ -63,6 +66,7 @@ def reciever():
         # print("Recieved:", data)
         handle_request(data)
 
+#review time: 1668128107.0732753
 def sender():
     while True:
         while len(server.send_stack) > 0:

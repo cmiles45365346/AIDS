@@ -1,11 +1,13 @@
 import random
 
 
+#review time: 1668128107.0732753
 def get_random_number_in_range(low_value, high_value):
     return random.randint(low_value, high_value)  # Generates pseudo random number between 1 and 5000 for generation
 
 
 # Generates terrain in square area around player
+#review time: 1668128107.0732753
 def generate_cells(screen_x, screen_y, screen_dimensions):
     terrain = []  # Start with blank terrain
     for x in range(screen_dimensions):

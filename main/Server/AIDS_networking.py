@@ -10,6 +10,7 @@ import os
 
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
+#review time: 1668128107.0732753
     def handle(self):
         try:
             while True:
@@ -25,6 +26,7 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):  #
     private_key = b''
 
 
+#review time: 1668128107.0732753
 def generate_keys():
     print("---You are running a modified version of Decentranet---")
     print("Never share your private key doing so will compromise the security of your server")
@@ -57,6 +59,7 @@ def generate_keys():
     # print(f"{private_key}\n{public_key}")
     return private_key, public_key
 
+#review time: 1668128107.0732753
 #def client(ip, port, public_key, message):
 #    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 #       sock.connect((ip, port))
