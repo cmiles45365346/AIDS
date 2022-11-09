@@ -57,7 +57,6 @@ def reciever():
     while True:
         data = server.socket.recv(4096)
         data = json.loads(decrypt(server.private_key, data).decode())
-        # print("Recieved:", data)
         handle_request(data)
 
 def handle_request(request):
@@ -70,9 +69,8 @@ def sender():
         try:
             while len(server.send_stack) > 0:
                 server.socket.send(encrypt(server.server_public_key, json.dumps(server.send_stack[0]).encode()))
-                server.send_stack.pop(0)
-                print(server.send_stack)
-        except Exception as e:
+                server.send_stack.pop(0) # Prevents repeating tasks
+        except:
             pass
         time.sleep(0.1)
 
