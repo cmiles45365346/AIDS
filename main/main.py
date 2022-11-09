@@ -10,68 +10,70 @@ import time
 import json
 import os
 
-
-#review time: 1668128107.0732753
-def handle_request(request):
-    if request[0] == "set_player_pos":
-        server.players = request[1]
-
-
 class ServerData:
     public_key = b''
     server_public_key = b''
     private_key = b''
     players = []
     send_stack = []
-    sock = b''
+    socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #review time: 1668128107.0732753
 def generate_keys():
-    print("---You are running a modified version of Decentranet---")
-    print("Never share your private key doing so will compromise the security of your server")
-    print("You may share your public key freely to invite people to connect to your private server")
-
-    # Read old pair if one does exist
-    if os.path.exists("private.pem") and os.path.exists("public.pem"):
-        with open("private.pem", "rt") as f:
-            priv_key = f.read()
-            f.close()
-        with open("public.pem", "rt") as f:
-            pub_key = f.read()
-            f.close()
-        print("Using old key delete private.pem or public.pem and run this program again to generate a new pair")
-        print("Do not delete private.pem or public.pem unless required")
-    else:  # Generate new pair if one doesn't exist
-        key_pair = generate_eth_key()
-        pub_key = key_pair.public_key.to_hex()  # hex string
-        priv_key = key_pair.to_hex()  # hex string
-
+    def write_keys(public_key, private_key):
         with open("private.pem", "wt") as f:
-            f.write(priv_key)
+            f.write(private_key)
             f.close()
 
         with open("public.pem", "wt") as f:
-            f.write(pub_key)
+            f.write(public_key)
             f.close()
 
+    def read_keys():
+        with open("private.pem", "rt") as f:
+            private_key = f.read()
+            f.close()
+        with open("public.pem", "rt") as f:
+            public_key = f.read()
+            f.close()
+        return private_key, public_key
+
+    # Read old pair if one does exist
+    if os.path.exists("private.pem") and os.path.exists("public.pem"):
+        print("Using old keys")
+        return read_keys()
+    else:  # Generate new pair if one doesn't exist
+        key_pair = generate_eth_key()
+        public_key = key_pair.public_key.to_hex()  # hex string
+        private_key = key_pair.to_hex()  # hex string
+
+        write_keys(public_key, private_key)
+
         print("Created new key you now have a new identity")
-    # print(f"{private_key}\n{public_key}")
-    return priv_key, pub_key
+    return private_key, public_key
 
 #review time: 1668128107.0732753
 def reciever():
     while True:
-        data = server.sock.recv(4096)
-        data = json.loads(decrypt(server.private_key, data))
+        data = server.socket.recv(4096)
+        data = json.loads(decrypt(server.private_key, data).decode())
         # print("Recieved:", data)
         handle_request(data)
+
+def handle_request(request):
+    if request[0] == "set_player_pos":
+        server.players = request[1]
 
 #review time: 1668128107.0732753
 def sender():
     while True:
-        while len(server.send_stack) > 0:
-            server.sock.send(encrypt(server.server_public_key, json.dumps(server.send_stack[0]).encode()))
-            server.send_stack.pop(0)
+        try:
+            while len(server.send_stack) > 0:
+                server.socket.send(encrypt(server.server_public_key, json.dumps(server.send_stack[0]).encode()))
+                server.send_stack.pop(0)
+                print(server.send_stack)
+        except Exception as e:
+            pass
         time.sleep(0.1)
 
 if __name__ == '__main__':
@@ -80,7 +82,7 @@ if __name__ == '__main__':
     print("Finished imports")
     print("starting infinite world of AIDSrpg!")
     
-    server_ip = '121.98.62.177'
+    server_ip = '192.168.1.17'
     server_port = 28015
     with open("server_public.pem", "rt") as f:
         server.server_public_key = f.read()
@@ -88,8 +90,7 @@ if __name__ == '__main__':
     
     while True:
         try:
-            server.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server.sock.connect((server_ip, server_port))
+            server.socket.connect((server_ip, server_port))
             break
         except Exception as e:
             print("Error occurred: {}".format(e))
@@ -121,12 +122,8 @@ if __name__ == '__main__':
         image = screen.render_screen(image, terrain, screen_dimensions)
         image = screen.resize_screen(image)
         screen.display_screen(image)
-        player_x, player_y = playerInput.input_controller(terrain, screen_dimensions, player_collides_with,  player_position, player_x,
-                                                         player_y)
+        player_x, player_y, server.send_stack = playerInput.input_controller(terrain, screen_dimensions, player_collides_with,  player_position, player_x,
+                                                         player_y, server.send_stack, server.public_key)
         server.send_stack.append(["set_player_pos", server.public_key, player_x, player_y])
-        # Upload player_x and player_y to server
-        # print("Ran loop in: {:.3f} seconds".format(time.time() - current_time))
-        time.sleep(0.05)
-        print(server.send_stack)
-else:
-    server = ServerData # Give server to external python files
+        time.sleep(0.1)
+        server.send_stack = [] # Prevents crash from too much data I'm bad programmer

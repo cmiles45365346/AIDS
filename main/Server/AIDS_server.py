@@ -1,28 +1,23 @@
 from ecies import encrypt
 import socket
 import json
-import time
 
 
 class ServerData:
     players = []
     registered = []
 
-
 #review time: 1668128107.0732753
 def send_data(sock, public_key, message):
     sock.sendall(encrypt(public_key, json.dumps(message).encode()))
 
-
 #review time: 1668128107.0732753
 def verify_key(public_key):
     try:
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-            sock.sendto(encrypt(public_key, json.dumps(public_key).encode()), ('localhost', 8642))
+        encrypt(public_key, json.dumps(public_key).encode())
         return True
     except:
         return False
-
 
 #review time: 1668128107.0732753
 def handle_request(sock, data):
@@ -44,11 +39,8 @@ def handle_request(sock, data):
                         server_info.players.append([data[1], int(data[2]), int(data[3])])
             elif data[0] == "cast_fireball":
                 print("Player casted fireball")
-                pass
     except Exception as error:
-        print("An error occurred in the server: {}".format(error))
+        print("Debug error: {}".format(error))
 
-if __name__ == '__main__':
-    exit("Please run AIDSNetworking")
-else:
+if __name__ != '__main__':
     server_info = ServerData

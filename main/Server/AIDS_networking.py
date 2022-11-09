@@ -25,28 +25,9 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):  #
     public_key = b''
     private_key = b''
 
-
 #review time: 1668128107.0732753
 def generate_keys():
-    print("---You are running a modified version of Decentranet---")
-    print("Never share your private key doing so will compromise the security of your server")
-    print("You may share your public key freely to invite people to connect to your private server")
-
-    # Read old pair if one does exist
-    if os.path.exists("private.pem") and os.path.exists("public.pem"):
-        with open("private.pem", "rt") as f:
-            private_key = f.read()
-            f.close()
-        with open("public.pem", "rt") as f:
-            public_key = f.read()
-            f.close()
-        print("Using old key delete private.pem or public.pem and run this program again to generate a new pair")
-        print("Do not delete private.pem or public.pem unless required")
-    else:  # Generate new pair if one doesn't exist
-        key_pair = generate_eth_key()
-        public_key = key_pair.public_key.to_hex()  # hex string
-        private_key = key_pair.to_hex()  # hex string
-
+    def write_keys(public_key, private_key):
         with open("private.pem", "wt") as f:
             f.write(private_key)
             f.close()
@@ -55,15 +36,28 @@ def generate_keys():
             f.write(public_key)
             f.close()
 
-        print("Created new key you now have a new identity")
-    # print(f"{private_key}\n{public_key}")
-    return private_key, public_key
+    def read_keys():
+        with open("private.pem", "rt") as f:
+            private_key = f.read()
+            f.close()
+        with open("public.pem", "rt") as f:
+            public_key = f.read()
+            f.close()
+        return private_key, public_key
 
-#review time: 1668128107.0732753
-#def client(ip, port, public_key, message):
-#    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-#       sock.connect((ip, port))
-#       sock.send(encrypt(public_key, json.dumps(message).encode()))
+    # Read old pair if one does exist
+    if os.path.exists("private.pem") and os.path.exists("public.pem"):
+        print("Using old keys")
+        return read_keys()
+    else:  # Generate new pair if one doesn't exist
+        key_pair = generate_eth_key()
+        public_key = key_pair.public_key.to_hex()  # hex string
+        private_key = key_pair.to_hex()  # hex string
+
+        write_keys(public_key, private_key)
+
+        print("Created new key you now have a new identity")
+    return private_key, public_key
 
 if __name__ == "__main__":
     print(socket.gethostbyname(socket.gethostname()))
@@ -80,8 +74,13 @@ if __name__ == "__main__":
 
         print("Server loop running in thread:", server_thread.name)
        
-        time.sleep(3600) # Run the server for 1 hour then shut the server down when there are no requests left
+        time.sleep(3600) # Run the server for 60 minutes
         
         print("Server shutting down")
 
         server.shutdown()
+
+'''
+Make sure when launching you are launching main.py from main.py folder and AIDS_networking.py from AIDS_networking.py folder
+or else Mac failure will be coming for you because you are using incorrect encryption keys.
+'''

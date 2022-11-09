@@ -6,7 +6,7 @@ import keyboard
 import main
 
 #review time: 1668128107.0732753
-def input_controller(terrain, screen_dimensions, player_collides_with, player_position, player_x, player_y):
+def input_controller(terrain, screen_dimensions, player_collides_with, player_position, player_x, player_y, send_stack, public_key):
     if keyboard.is_pressed("esc"):
         exit("game shut down")
     # Controls in game
@@ -33,5 +33,5 @@ def input_controller(terrain, screen_dimensions, player_collides_with, player_po
         inventory.player_inventory.open_player_inventory()
         inventory.player_inventory.get_player_gold()
     if keyboard.is_pressed("l"):
-        main.server.send_stack.append(["cast_fireball", main.server.public_key])
-    return player_x, player_y
+        send_stack.append(["cast_fireball", public_key])
+    return player_x, player_y, send_stack

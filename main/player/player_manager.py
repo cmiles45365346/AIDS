@@ -4,7 +4,7 @@ class player_data:
         self.stats = [["max_health", 10],
                       ["health", 10],
                       ["max_mana", 10],
-                      ["mana", 10]] # Chose array because yes
+                      ["mana", 10]]
 
 
 if __name__ != '__main__':
