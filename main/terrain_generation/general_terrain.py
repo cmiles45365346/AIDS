@@ -1,13 +1,12 @@
 import random
 
-
-#review time: 1668128107.0732753
+#review time: 1668264160.2403488
 def get_random_number_in_range(low_value, high_value):
     return random.randint(low_value, high_value)  # Generates pseudo random number between 1 and 5000 for generation
 
 
 # Generates terrain in square area around player
-#review time: 1668128107.0732753
+#review time: 1668264160.241346
 def generate_cells(screen_x, screen_y, screen_dimensions):
     terrain = []  # Start with blank terrain
     for x in range(screen_dimensions):
@@ -27,7 +26,7 @@ def generate_cells(screen_x, screen_y, screen_dimensions):
             elif random_number < 4940:  # Generates left grass tile
                 terrain.append("4")
             elif random_number < 4982:  # Generates mountains
-                terrain.append("∧")
+                terrain.append("^")
             elif random_number < 5001:  # Generates traders
                 terrain.append("a")
             else:

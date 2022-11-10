@@ -10,6 +10,7 @@ import time
 import json
 import os
 
+#review time: 1668263876.4930093
 class ServerData:
     public_key = b''
     server_public_key = b''
@@ -18,8 +19,9 @@ class ServerData:
     send_stack = []
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2313724
 def generate_keys():
+#review time: 1668264160.2313724
     def write_keys(public_key, private_key):
         with open("private.pem", "wt") as f:
             f.write(private_key)
@@ -29,6 +31,7 @@ def generate_keys():
             f.write(public_key)
             f.close()
 
+#review time: 1668264160.2313724
     def read_keys():
         with open("private.pem", "rt") as f:
             private_key = f.read()
@@ -52,18 +55,19 @@ def generate_keys():
         print("Created new key you now have a new identity")
     return private_key, public_key
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2313724
 def reciever():
     while True:
         data = server.socket.recv(4096)
         data = json.loads(decrypt(server.private_key, data).decode())
         handle_request(data)
 
+#review time: 1668264160.2313724
 def handle_request(request):
     if request[0] == "set_player_pos":
         server.players = request[1]
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2313724
 def sender():
     while True:
         try:
@@ -97,7 +101,7 @@ if __name__ == '__main__':
     player_x = 0
     player_y = 0
     player_position = (screen_dimensions ** 2 // 2) - screen_dimensions // 2
-    player_collides_with = ["∧", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
+    player_collides_with = ["^", "a", "E"]  # If terrain character is in this array the player cannot move onto it.
     
     # Handle information coming in from the server
     reciever_thread = threading.Thread(target=reciever)

@@ -3,15 +3,16 @@ import socket
 import json
 
 
+#review time: 1668263876.497969
 class ServerData:
     players = []
     registered = []
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2393513
 def send_data(sock, public_key, message):
     sock.sendall(encrypt(public_key, json.dumps(message).encode()))
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2393513
 def verify_key(public_key):
     try:
         encrypt(public_key, json.dumps(public_key).encode())
@@ -19,7 +20,7 @@ def verify_key(public_key):
     except:
         return False
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2393513
 def handle_request(sock, data):
     try:
         if verify_key(data[1]):
@@ -37,6 +38,7 @@ def handle_request(sock, data):
                     else:
                         server_info.registered.append(data[1]) # Player public key
                         server_info.players.append([data[1], int(data[2]), int(data[3])])
+                        print("appended new player")
             elif data[0] == "cast_fireball":
                 print("Player casted fireball")
     except Exception as error:

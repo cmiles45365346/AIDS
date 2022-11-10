@@ -9,8 +9,9 @@ import json
 import os
 
 
+#review time: 1668263876.4969716
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
-#review time: 1668128107.0732753
+#review time: 1668264160.2393513
     def handle(self):
         try:
             while True:
@@ -21,12 +22,14 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             print("Failure occurred: {}".format(e))
 
 
+#review time: 1668263876.4969716
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):  # RW-perms from in and out of thread
     public_key = b''
     private_key = b''
 
-#review time: 1668128107.0732753
+#review time: 1668264160.2393513
 def generate_keys():
+#review time: 1668264160.2393513
     def write_keys(public_key, private_key):
         with open("private.pem", "wt") as f:
             f.write(private_key)
@@ -35,7 +38,7 @@ def generate_keys():
         with open("public.pem", "wt") as f:
             f.write(public_key)
             f.close()
-
+#review time: 1668264160.2393513
     def read_keys():
         with open("private.pem", "rt") as f:
             private_key = f.read()
@@ -81,8 +84,13 @@ if __name__ == "__main__":
         while True:
             next_frame += 0.1
             # Main server loop
+            
+
+            # Lag detection system
             if next_frame - time.time() > 0:
-                time.sleep(next_frame - time.time()) # Pauses the server for time
+                time.sleep(next_frame - time.time()) # Pauses the server for the remaining time
+            else:
+                print("Server lag has been detected at {}".format(time.time()))
         
         print("Server shutting down")
 
